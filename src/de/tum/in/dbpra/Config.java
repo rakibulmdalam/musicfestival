@@ -10,6 +10,7 @@ public class Config {
 	public static String USER;
 	public static String PASSWORD;
 	public static String PORT;
+	public static String DB;
 	public Config() {
 		Properties prop = new Properties();
 		InputStream input = null;
@@ -23,6 +24,7 @@ public class Config {
 			USER = prop.getProperty("user");
 			PASSWORD = prop.getProperty("password");
 			PORT = prop.getProperty("port");
+			DB = prop.getProperty("db");
 
 		} catch (IOException ex) {
 			ex.printStackTrace();
