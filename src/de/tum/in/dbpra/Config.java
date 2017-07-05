@@ -1,41 +1,13 @@
 package de.tum.in.dbpra;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
 public class Config {
-	public static String HOST;
-	public static String USER;
-	public static String PASSWORD;
-	public static String PORT;
-	public static String DB;
-	public Config() {
-		Properties prop = new Properties();
-		InputStream input = null;
-		try {
 
-			input = new FileInputStream("config.properties");
-			prop.load(input);
-
-			// get the property value
-			HOST = prop.getProperty("host");
-			USER = prop.getProperty("user");
-			PASSWORD = prop.getProperty("password");
-			PORT = prop.getProperty("port");
-			DB = prop.getProperty("db");
-
-		} catch (IOException ex) {
-			ex.printStackTrace();
-		} finally {
-			if (input != null) {
-				try {
-					input.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+	
+	public static final class Database {
+		public static final String HOST = "localhost";
+		public static final String PORT = "5432";
+		public static final String DB = "postgres";
+		public static final String USER = "postgres";
+		public static final String PASS = "qwerty";
 	}
 }
