@@ -98,7 +98,7 @@ CREATE INDEX fk_Employee_User_idx ON Employee (id ASC);
 CREATE TABLE IF NOT EXISTS Note (
     id SERIAL NOT NULL ,
     content TEXT NULL,
-    creation_time TIMESTAMP NULL,
+    creation_time TIMESTAMP NULL DEFAULT now(),
     area_id INT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_Note_Area FOREIGN KEY (area_id) REFERENCES Area (id)   
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS Post (
     id SERIAL NOT NULL ,
     heading VARCHAR(200) NULL,
     content VARCHAR(200) NULL,
-    publish_date TIMESTAMP NULL,
+    publish_date TIMESTAMP NULL DEFAULT now(),
     tags VARCHAR(200) NULL,
     newsletter_id INT NULL,
     PRIMARY KEY (id),
@@ -168,7 +168,7 @@ CREATE INDEX fk_Product_Provider_idx ON Product (provider_id ASC);
 
 CREATE TABLE IF NOT EXISTS Pressinfo (
     id SERIAL NOT NULL,
-    publish_date TIMESTAMP NULL,
+    publish_date TIMESTAMP NULL DEFAULT now(),
     text VARCHAR(200) NULL,
     band_id INT NOT NULL,
     PRIMARY KEY (id),
@@ -402,7 +402,7 @@ CREATE INDEX fk_Visitor_has_Schedule_Visitor_idx ON Visitor_Schedule (visitor_id
 CREATE TABLE IF NOT EXISTS Note_Notification (
     employee_id INT NOT NULL,
     note_id INT NOT NULL,
-    time_seen TIMESTAMP ,
+    time_seen TIMESTAMP,
     PRIMARY KEY (employee_id, note_id),
     CONSTRAINT fk_NoteNotification_Employee FOREIGN KEY (employee_id) REFERENCES Employee (id),
     CONSTRAINT fk_NoteNotification_Note FOREIGN KEY (note_id) REFERENCES Note (id)
@@ -435,7 +435,7 @@ CREATE INDEX fk_Sell_Shop_idx ON Sell (product_id ASC);
 CREATE TABLE IF NOT EXISTS Visitor_Access_Log (
     area_id INT NOT NULL,
     visitor_id INT NOT NULL,
-    access_time TIMESTAMP NULL,
+    access_time TIMESTAMP NOT NULL DEFAULT now(),
     PRIMARY KEY (area_id, visitor_id, access_time),
     CONSTRAINT fk_VisitorAccess_Area FOREIGN KEY (area_id) REFERENCES Area (id),
     CONSTRAINT fk_VisitorAccess_Visitor FOREIGN KEY (visitor_id) REFERENCES Visitor (id)
@@ -452,7 +452,7 @@ CREATE TABLE IF NOT EXISTS Purchase (
     id SERIAL NOT NULL ,
     sell_id INT NOT NULL,
     visitor_id INT NOT NULL,
-    purchase_date TIMESTAMP NOT NULL,
+    purchase_date TIMESTAMP NOT NULL DEFAULT now(),
     quantity INT DEFAULT 1,
     PRIMARY KEY (sell_id, visitor_id, purchase_date),
     CONSTRAINT fk_Purchase_Sell FOREIGN KEY (sell_id) REFERENCES Sell (id),
@@ -470,7 +470,7 @@ CREATE TABLE IF NOT EXISTS Band_Employee_Interaction (
     employee_id INT NULL,
     stage_name VARCHAR(45) NULL,
     band_id INT NULL,
-    interaction_date TIMESTAMP NULL,
+    interaction_date TIMESTAMP NULL DEFAULT now(),
     description TEXT NULL,
     PRIMARY KEY (employee_id, band_id, interaction_date),
     CONSTRAINT fk_BandInteraction_StageEmployee FOREIGN KEY (employee_id, stage_name) REFERENCES Stage_Employee (employee_id, stage_name),
