@@ -7,6 +7,11 @@ public class SponsorBean extends ProviderBean {
 	private Double paidMoney;
 	private ArrayList<ShopBean> shops;
 
+	public SponsorBean() {
+		super();
+		this.shops = new ArrayList<ShopBean>();
+	}
+
 	public Integer getId() {
 		return id;
 	}

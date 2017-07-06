@@ -3,11 +3,15 @@ package de.tum.in.dbpra.model.bean;
 import java.util.ArrayList;
 
 public class TicketclassBean {
-	
+
 	private Integer id;
 	private Double price;
 	private String description;
 	private ArrayList<AreaBean> allowedAreas;
+
+	public TicketclassBean() {
+		this.allowedAreas = new ArrayList<AreaBean>();
+	}
 
 	public Integer getId() {
 		return id;

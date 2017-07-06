@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class EmployeeBean extends UserAccountBean {
-	
+
 	private String lastName;
 	private String firstName;
 	private Date dateOfBirth;
 	private String employeeRole; // TODO: use role enum
 	private ArrayList<ShiftBean> shifts;
+
+	public EmployeeBean() {
+		super();
+		this.shifts = new ArrayList<ShiftBean>();
+	}
 
 	public String getLastName() {
 		return lastName;

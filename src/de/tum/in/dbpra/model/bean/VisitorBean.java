@@ -14,6 +14,13 @@ public class VisitorBean extends UserAccountBean {
 	private ArrayList<ScheduleBean> timetable;
 	private ArrayList<PurchaseBean> purchases;
 
+	public VisitorBean() {
+		super();
+		this.specialAreaPermissions = new ArrayList<AreaBean>();
+		this.timetable = new ArrayList<ScheduleBean>();
+		this.purchases = new ArrayList<PurchaseBean>();
+	}
+	
 	public String getLastName() {
 		return lastName;
 	}

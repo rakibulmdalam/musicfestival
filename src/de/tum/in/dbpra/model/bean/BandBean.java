@@ -9,6 +9,11 @@ public class BandBean extends ProviderBean {
 	private ArrayList<SongBean> songs;
 	private ScheduleBean schedule;
 
+	public BandBean() {
+		super();
+		this.songs = new ArrayList<SongBean>();
+	}
+
 	public String getNumberOfMembers() {
 		return numberOfMembers;
 	}

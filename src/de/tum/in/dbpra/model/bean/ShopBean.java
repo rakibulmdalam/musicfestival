@@ -3,11 +3,15 @@ package de.tum.in.dbpra.model.bean;
 import java.util.HashMap;
 
 public class ShopBean {
-	
+
 	private Integer id;
 	private String name;
 	private SponsorBean sponsor;
 	private HashMap<ProductBean, Integer> productQuantities;
+
+	public ShopBean() {
+		this.productQuantities = new HashMap<ProductBean, Integer>();
+	}
 
 	public Integer getId() {
 		return id;

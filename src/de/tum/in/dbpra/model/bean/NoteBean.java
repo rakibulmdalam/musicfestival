@@ -4,12 +4,16 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class NoteBean {
-	
+
 	private Integer id;
 	private String content;
 	private Date creationTime;
 	private AreaBean area;
 	private HashMap<EmployeeBean, Date> recipientsTimeSeen;
+
+	public NoteBean() {
+		this.recipientsTimeSeen = new HashMap<EmployeeBean, Date>();
+	}
 
 	public Integer getId() {
 		return id;
@@ -46,18 +50,17 @@ public class NoteBean {
 	public HashMap<EmployeeBean, Date> getRecipientsTimeSeen() {
 		return this.recipientsTimeSeen;
 	}
-	
+
 	public Date getRecipientTimeSeen(EmployeeBean employee) {
 		return this.recipientsTimeSeen.get(employee);
 	}
-	
+
 	public void addRecipient(EmployeeBean employee) {
 		this.recipientsTimeSeen.put(employee, null);
 	}
-	
+
 	public void setRecipientTimeSeen(EmployeeBean employee, Date timeSeen) {
 		this.recipientsTimeSeen.put(employee, timeSeen);
 	}
-	
-	
+
 }
