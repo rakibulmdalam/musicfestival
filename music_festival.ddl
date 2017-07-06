@@ -10,7 +10,7 @@ CREATE DATABASE musicfestival;
 \c musicfestival;
 
 -- -----------------------------------------------------
--- Table MusicFestival.User
+-- Table MusicFestival.FestivalUser
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS FestivalUser (
@@ -79,7 +79,7 @@ CREATE INDEX fk_Shift_Area_idx ON Shift (area_id ASC);
 -- Table MusicFestival.Employee
 -- -----------------------------------------------------
 
-CREATE TABLE Employee (
+CREATE TABLE IF NOT EXISTS Employee (
     id INT NOT NULL,
     last_name VARCHAR(50),
     first_name VARCHAR(50),

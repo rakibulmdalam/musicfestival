@@ -2,57 +2,69 @@ package de.tum.in.dbpra.model.bean;
 
 import java.util.Date;
 
-public class Schedule {
+public class ScheduleBean {
+	
 	private Integer id;
 	private Date timeBuildUp;
 	private Date timeStartPlaying;
 	private Date timeFinishPlaying;
 	private Date timeLeaveStage;
-	private String stageName;
-	private Integer bandId;
-	
-	public Schedule(){}
-	
+	private StageBean stage;
+	private BandBean band;
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public Date getTimeBuildUp() {
 		return timeBuildUp;
 	}
+
 	public void setTimeBuildUp(Date timeBuildUp) {
 		this.timeBuildUp = timeBuildUp;
 	}
+
 	public Date getTimeStartPlaying() {
 		return timeStartPlaying;
 	}
+
 	public void setTimeStartPlaying(Date timeStartPlaying) {
 		this.timeStartPlaying = timeStartPlaying;
 	}
+
 	public Date getTimeFinishPlaying() {
 		return timeFinishPlaying;
 	}
+
 	public void setTimeFinishPlaying(Date timeFinishPlaying) {
 		this.timeFinishPlaying = timeFinishPlaying;
 	}
+
 	public Date getTimeLeaveStage() {
 		return timeLeaveStage;
 	}
+
 	public void setTimeLeaveStage(Date timeLeaveStage) {
 		this.timeLeaveStage = timeLeaveStage;
 	}
-	public String getStageName() {
-		return stageName;
+
+	public StageBean getStage() {
+		return stage;
 	}
-	public void setStageName(String stageName) {
-		this.stageName = stageName;
+
+	public void setStage(StageBean stage) {
+		this.stage = stage;
 	}
-	public Integer getBandId() {
-		return bandId;
+
+	public BandBean getBand() {
+		return band;
 	}
-	public void setBandId(Integer bandId) {
-		this.bandId = bandId;
+
+	public void setBand(BandBean band) {
+		this.band = band;
 	}
 }

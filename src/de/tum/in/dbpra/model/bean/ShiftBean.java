@@ -2,36 +2,42 @@ package de.tum.in.dbpra.model.bean;
 
 import java.util.Date;
 
-public class Shift {
+public class ShiftBean {
+	
 	private Integer id;
 	private Date startingTime;
 	private Date endingTime;
-	private Integer areaId;
-	
-	public Shift(){}
-	
+	private AreaBean area;
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public Date getStartingTime() {
 		return startingTime;
 	}
+
 	public void setStartingTime(Date startingTime) {
 		this.startingTime = startingTime;
 	}
+
 	public Date getEndingTime() {
 		return endingTime;
 	}
+
 	public void setEndingTime(Date endingTime) {
 		this.endingTime = endingTime;
 	}
-	public Integer getAreaId() {
-		return areaId;
+
+	public AreaBean getArea() {
+		return area;
 	}
-	public void setAreaId(Integer areaId) {
-		this.areaId = areaId;
+
+	public void setArea(AreaBean area) {
+		this.area = area;
 	}
 }
