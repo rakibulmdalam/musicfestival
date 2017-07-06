@@ -7,6 +7,7 @@ public class BandBean extends ProviderBean {
 	private String numberOfMembers;
 	private String genre;
 	private ArrayList<SongBean> songs;
+	private ScheduleBean schedule;
 
 	public String getNumberOfMembers() {
 		return numberOfMembers;
@@ -30,5 +31,13 @@ public class BandBean extends ProviderBean {
 
 	public void addSong(SongBean song) {
 		this.songs.add(song);
+	}
+
+	public ScheduleBean getSchedule() {
+		return schedule;
+	}
+
+	public void setSchedule(ScheduleBean schedule) {
+		this.schedule = schedule;
 	}
 }
