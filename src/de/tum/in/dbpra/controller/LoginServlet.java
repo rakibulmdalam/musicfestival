@@ -1,4 +1,4 @@
-package de.tum.in.dbpra;
+package de.tum.in.dbpra.controller;
 
 import java.io.IOException;
 
