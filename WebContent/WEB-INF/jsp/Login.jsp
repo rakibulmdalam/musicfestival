@@ -8,10 +8,10 @@
   <jsp:param name="pageTitle" value="Login" />
 </jsp:include>
 <body>
-	<section class="hero is-fullheight">
+	<section class="hero is-fullheight is-dark">
 		<div class="hero-body">
 			<div class="container has-text-centered">
-				<h1 class="title is-1 is-spaced title--branding">
+				<h1 class="title is-1 title--branding is-spaced is-inline-flex">
 					<span class="title__logo">M</span>
 				</h1>
 				<h2 class="subtitle">Welcome!</h2>

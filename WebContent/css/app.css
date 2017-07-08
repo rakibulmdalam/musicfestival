@@ -2,7 +2,6 @@ body {
 	font-family: Karla, BlinkMacSystemFont, -apple-system, "Segoe UI",
 		Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
 		"Helvetica Neue", Helvetica, Arial, sans-serif;
-	
 }
 
 html {
@@ -12,6 +11,19 @@ html {
 .hero-body {
 	padding-top: 2.3rem;
 	padding-bottom: 2.3rem;
+}
+
+.title {
+	
+}
+
+@keyframes fade-move-in-from-top {
+    from { opacity: 0; transform: translateY(-30px);}
+    to   { opacity: 1; transform: translateY(0);}
+}
+@keyframes fade-move-in-from-bottom {
+    from { opacity: 0; transform: translateY(30px);}
+    to   { opacity: 1; transform: translateY(0);}
 }
 
 .title.title--branding {
@@ -30,6 +42,7 @@ html {
 	position: relative;
 	margin-bottom: 6px;
 	right: -10px;
+	animation: fade-move-in-from-top 1s;
 }
 
 .title__logo:last-child {
@@ -46,9 +59,10 @@ html {
 	position: relative;
 	left: -10px;
 	top: -5px;
+	animation: fade-move-in-from-bottom 1s;
 }
-.subtitle strong,
-.title strong {
+
+.subtitle strong, .title strong {
 	font-weight: 700;
 }
 
@@ -63,13 +77,17 @@ html {
 	text-transform: uppercase;
 	vertical-align: middle;
 }
+
 .box {
 	padding: 0.85rem;
+	animation: fade-move-in-from-bottom 1s;
 }
+
 .image.is-200x200 {
 	height: 200px;
 	width: 200px;
 }
-.content h2:not(:first-child) {
-    margin-top: 1.5em;
+
+.content h2:not (:first-child ) {
+	margin-top: 1.5em;
 }
