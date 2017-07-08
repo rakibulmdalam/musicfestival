@@ -4,6 +4,11 @@ body {
 		"Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.hero-body {
+	padding-top: 2.5rem;
+	padding-bottom: 2.5rem;
+}
+
 .title--branding {
 	font-family: Muli;
 	font-weight: 900;
@@ -18,4 +23,10 @@ body {
 
 .tabs.is-boxed a {
 	border-radius: 6px 6px 0 0;
+}
+
+.button--logout {
+	margin-top: 6px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
 }

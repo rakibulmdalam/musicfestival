@@ -4,17 +4,9 @@
 	class="de.tum.in.dbpra.model.bean.UserAccountBean"></jsp:useBean>
 <!DOCTYPE html>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width">
-<link
-	href="https://fonts.googleapis.com/css?family=Karla:400,400i,700,700i|Muli:900"
-	rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="/css/bulma.min.css" />
-<link rel="stylesheet" type="text/css" href="/css/app.css" />
-<title>M: The Music Festival | Login</title>
-</head>
+<jsp:include page="head.jsp" >
+  <jsp:param name="pageTitle" value="Login" />
+</jsp:include>
 <body>
 	<section class="hero is-fullheight">
 		<div class="hero-body">
