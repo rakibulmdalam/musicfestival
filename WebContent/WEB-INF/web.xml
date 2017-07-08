@@ -6,71 +6,71 @@
 
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.LoginServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.LoginServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>LogoutServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.LogoutServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.LogoutServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>VisitorOverviewServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.VisitorOverviewServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.visitor.VisitorOverviewServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>TimetableServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.TimetableServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.visitor.TimetableServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>PurchasesServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.PurchasesServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.visitor.PurchasesServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AdminOverviewServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.AdminOverviewServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.admin.AdminOverviewServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>BandSchedulerServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.BandSchedulerServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.admin.BandSchedulerServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AdminNotesServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.AdminNotesServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.admin.AdminNotesServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>NonAdminOverviewServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.NonAdminOverviewServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.employee.NonAdminOverviewServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ShiftsServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.ShiftsServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.employee.ShiftsServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>NonAdminNotesServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.NonAdminNotesServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.employee.NonAdminNotesServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>NonAdminBandNotesServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.NonAdminBandNotesServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.employee.NonAdminBandNotesServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>BandOverviewServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.BandOverviewServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.provider.BandOverviewServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>BandNotesServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.BandNotesServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.provider.BandNotesServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>SponsorOverviewServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.SponsorOverviewServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.provider.SponsorOverviewServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ProductsServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.ProductsServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.provider.ProductsServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>ProductStatisticsServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.ProductStatisticsServlet</servlet-class>
+		<servlet-class>de.tum.in.dbpra.controller.provider.ProductStatisticsServlet</servlet-class>
 	</servlet>
 
 
