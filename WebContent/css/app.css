@@ -1,0 +1,21 @@
+body {
+	font-family: Karla, BlinkMacSystemFont, -apple-system, "Segoe UI",
+		Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+		"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.title--branding {
+	font-family: Muli;
+	font-weight: 900;
+	margin-top: 10px;
+}
+
+.title__logo {
+	border: 3px solid #363636;
+	padding: 2px 12px;
+	border-radius: 18px;
+}
+
+.tabs.is-boxed a {
+	border-radius: 6px 6px 0 0;
+}
