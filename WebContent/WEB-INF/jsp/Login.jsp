@@ -14,7 +14,7 @@
 				<h1 class="title is-1 is-spaced title--branding">
 					<span class="title__logo">M</span>
 				</h1>
-				<h2 class="subtitle">Welcome</h2>
+				<h2 class="subtitle">Welcome!</h2>
 				<div class="columns">
 					<div class="column is-one-third is-offset-one-third">
 						<form method="post">

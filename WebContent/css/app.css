@@ -5,20 +5,42 @@ body {
 }
 
 .hero-body {
-	padding-top: 2.5rem;
-	padding-bottom: 2.5rem;
+	padding-top: 2.3rem;
+	padding-bottom: 2.3rem;
 }
 
-.title--branding {
+.title.title--branding {
 	font-family: Muli;
 	font-weight: 900;
 	margin-top: 10px;
+	margin-bottom: 0.4rem;
 }
 
 .title__logo {
 	border: 3px solid #363636;
-	padding: 2px 12px;
+	padding: 4px 0px;
 	border-radius: 18px;
+	width: 70px;
+	height: 70px;
+	position: relative;
+	margin-bottom: 6px;
+	right: -10px;
+}
+
+.title__logo:last-child {
+	right: 0;
+}
+
+.title__profile-pic {
+	border: 5px solid white;
+	background-color: #00d1b2;
+	background-size: cover;
+	border-radius: 18px;
+	width: 80px;
+	height: 80px;
+	position: relative;
+	left: -10px;
+	top: -5px;
 }
 
 .tabs.is-boxed a {
@@ -26,7 +48,9 @@ body {
 }
 
 .button--logout {
-	margin-top: 6px;
+	margin-left: 6px;
+	font-size: 0.6rem;
 	letter-spacing: 1px;
 	text-transform: uppercase;
+	vertical-align: middle;
 }
