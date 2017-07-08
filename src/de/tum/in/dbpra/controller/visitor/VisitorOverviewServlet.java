@@ -21,7 +21,6 @@ public class VisitorOverviewServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp");
 		dispatcher.forward(req, resp);
 	}
