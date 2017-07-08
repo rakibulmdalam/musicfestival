@@ -2,6 +2,7 @@ package de.tum.in.dbpra.controller.provider;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,8 +21,8 @@ public class SponsorOverviewServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doGet(req, resp);
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/SponsorOverview.jsp");
+		dispatcher.forward(req, resp);
 	}
 
 }

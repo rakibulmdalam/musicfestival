@@ -8,27 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BandNotesServlet extends HttpServlet {
+public class BandProductsServlet extends HttpServlet {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4820847690830486065L;
+	private static final long serialVersionUID = 3548548572339513246L;
 
-	public BandNotesServlet() {
+	public BandProductsServlet() {
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/BandNotes.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/BandProducts.jsp");
 		dispatcher.forward(req, resp);
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
 	}
 
 }

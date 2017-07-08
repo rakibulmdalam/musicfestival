@@ -61,16 +61,24 @@
 		<servlet-class>de.tum.in.dbpra.controller.provider.BandNotesServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>BandProductsServlet</servlet-name>
+		<servlet-class>de.tum.in.dbpra.controller.provider.BandProductsServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>BandProductStatisticsServlet</servlet-name>
+		<servlet-class>de.tum.in.dbpra.controller.provider.BandProductStatisticsServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>SponsorOverviewServlet</servlet-name>
 		<servlet-class>de.tum.in.dbpra.controller.provider.SponsorOverviewServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>ProductsServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.controller.provider.ProductsServlet</servlet-class>
+		<servlet-name>SponsorProductsServlet</servlet-name>
+		<servlet-class>de.tum.in.dbpra.controller.provider.SponsorProductsServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>ProductStatisticsServlet</servlet-name>
-		<servlet-class>de.tum.in.dbpra.controller.provider.ProductStatisticsServlet</servlet-class>
+		<servlet-name>SponsorProductStatisticsServlet</servlet-name>
+		<servlet-class>de.tum.in.dbpra.controller.provider.SponsorProductStatisticsServlet</servlet-class>
 	</servlet>
 
 
@@ -131,15 +139,23 @@
 		<url-pattern>/band/notes</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>BandProductsServlet</servlet-name>
+		<url-pattern>/band/products</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>BandProductStatisticsServlet</servlet-name>
+		<url-pattern>/band/products/statistics</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>SponsorOverviewServlet</servlet-name>
 		<url-pattern>/sponsor</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ProductsServlet</servlet-name>
-		<url-pattern>/products</url-pattern>
+		<servlet-name>SponsorProductsServlet</servlet-name>
+		<url-pattern>/sponsor/products</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>ProductStatisticsServlet</servlet-name>
-		<url-pattern>/products/statistics</url-pattern>
+		<servlet-name>SponsorProductStatisticsServlet</servlet-name>
+		<url-pattern>/sponsor/products/statistics</url-pattern>
 	</servlet-mapping>
 </web-app>
