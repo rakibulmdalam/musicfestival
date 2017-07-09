@@ -1,7 +1,11 @@
-body {
+body, button, input, select, textarea {
 	font-family: Karla, BlinkMacSystemFont, -apple-system, "Segoe UI",
 		Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
 		"Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+body {
+	overflow-x: initial;
 }
 
 html {
@@ -13,17 +17,14 @@ html {
 	padding-bottom: 2.3rem;
 }
 
-.title {
-	
+@keyframes fade-move-in-from-top {
+	from { opacity:0; transform: translateY(-30px); }
+	to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes fade-move-in-from-top {
-    from { opacity: 0; transform: translateY(-30px);}
-    to   { opacity: 1; transform: translateY(0);}
-}
 @keyframes fade-move-in-from-bottom {
-    from { opacity: 0; transform: translateY(30px);}
-    to   { opacity: 1; transform: translateY(0);}
+	from { opacity:0; transform: translateY(30px); }
+	to { opacity: 1; transform: translateY(0); }
 }
 
 .title.title--branding {
@@ -79,15 +80,49 @@ html {
 }
 
 .box {
-	padding: 0.85rem;
+	padding: 0.7rem;
 	animation: fade-move-in-from-bottom 1s;
 }
 
-.image.is-200x200 {
-	height: 200px;
-	width: 200px;
+.band-image {
+	height: 100px;
+	width: 100px;
 }
 
-.content h2:not (:first-child ) {
-	margin-top: 1.5em;
+@media only screen and (max-width : 768px) {
+	.band-image {
+		height: 64px;
+		width: 64px;
+	}
+}
+
+.content h2:not(:first-child) {
+	margin-top: 2em;
+}
+
+.box:not(:last-child) {
+	margin-top: 0.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.content dl:not(:last-child) {
+	margin-bottom: 3em;
+}
+
+dt {
+	position: -webkit-sticky;
+	position: sticky;
+    top: -1px;
+    background-color: white;
+    z-index: 2;
+    width: calc(100% + 20px);
+    margin-left: -10px;
+    padding: 10px 10px 12px;
+    font-weight: 700;
+    font-size: 1.75em;
+    line-height: 1.2;
+}
+
+.content dd {
+	margin: 0;
 }
