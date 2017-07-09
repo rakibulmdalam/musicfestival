@@ -14,8 +14,8 @@
 	</jsp:include>
 	<div class="tabs is-centered is-marginless">
 		<ul>
-			<li class="is-active"><a>Your picks</a></li>
-			<li><a>Search</a></li>
+			<li class="is-active"><a href="/visitor/timetable">Your picks</a></li>
+			<li><a href="/visitor/timetable/search">Search</a></li>
 		</ul>
 	</div>
 	<section class="section">

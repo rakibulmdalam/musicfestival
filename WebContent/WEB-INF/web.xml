@@ -21,6 +21,10 @@
 		<servlet-class>de.tum.in.dbpra.controller.visitor.TimetableServlet</servlet-class>
 	</servlet>
 	<servlet>
+		<servlet-name>TimetableSearchServlet</servlet-name>
+		<servlet-class>de.tum.in.dbpra.controller.visitor.TimetableSearchServlet</servlet-class>
+	</servlet>
+	<servlet>
 		<servlet-name>PurchasesServlet</servlet-name>
 		<servlet-class>de.tum.in.dbpra.controller.visitor.PurchasesServlet</servlet-class>
 	</servlet>
@@ -97,6 +101,10 @@
 	<servlet-mapping>
 		<servlet-name>TimetableServlet</servlet-name>
 		<url-pattern>/visitor/timetable</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>TimetableSearchServlet</servlet-name>
+		<url-pattern>/visitor/timetable/search</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>PurchasesServlet</servlet-name>
