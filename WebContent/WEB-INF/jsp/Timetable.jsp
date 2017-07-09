@@ -20,8 +20,8 @@
 	</div>
 	<section class="section">
 		<div class="columns">
-			<div class="column is-6 is-offset-3 content">
-				<dl>
+			<div class="column is-6 is-offset-3">
+				<dl class="section__festival-day">
 					<dt>Tuesday, 25th July 2017</dt>
 					<dd class="box">
 						<article class="media">
@@ -76,7 +76,7 @@
 						</article>
 					</dd>
 				</dl>
-				<dl>
+				<dl class="section__festival-day">
 					<dt>Wednesday, 26th July 2017</dt>
 					<dd class="box">
 						<article class="media">
