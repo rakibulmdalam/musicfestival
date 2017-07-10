@@ -7,5 +7,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/bulma.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/app.css" />
+<link rel="stylesheet" type="text/css" href="/css/timetable.css" />
 <title>M: The Music Festival | ${param.pageTitle}</title>
 </head>

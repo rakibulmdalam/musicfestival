@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body, button, input, select, textarea {
 	font-family: Karla, BlinkMacSystemFont, -apple-system, "Segoe UI",
 		Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
@@ -6,6 +10,7 @@ body, button, input, select, textarea {
 
 body {
 	overflow-x: initial;
+	line-height: 1.2;
 }
 
 html {
@@ -133,12 +138,12 @@ html {
 	margin-bottom: 2em;
 }
 
-dt {
+.festival-day-label {
 	position: -webkit-sticky;
 	position: sticky;
     top: -1px;
     background-color: white;
-    z-index: 2;
+    z-index: 99;
     width: calc(100% + 20px);
     margin-left: -10px;
     margin-bottom: 0.2rem;
@@ -150,16 +155,6 @@ dt {
 
 .content dd {
 	margin: 0;
-}
-
-.title.title--stage-name {
-	text-align: center;
-	text-transform: uppercase;
-	letter-spacing: 2px;
-	font-weight: 700;
-	margin-top: 0.2rem;
-	margin-bottom: 1.2rem;
-	color: #cc2b5e;
 }
 
 .delete--add-button {
@@ -177,7 +172,6 @@ dt {
 .section {
 	padding: 2rem 1.5rem 1.5rem;
 }
-
 .section__festival-day {
 	margin-bottom: 2rem;
 }
