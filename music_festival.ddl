@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS FestivalUser (
     email VARCHAR(200) NOT NULL,
     phone VARCHAR(20),
     picture VARCHAR(200),
+    role VARCHAR(50),
     PRIMARY KEY (id)
 );
 
