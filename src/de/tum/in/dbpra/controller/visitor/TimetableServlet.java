@@ -1,12 +1,17 @@
 package de.tum.in.dbpra.controller.visitor;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import de.tum.in.dbpra.model.bean.VisitorBean;
+import de.tum.in.dbpra.model.dao.TimetableDAO;
+import de.tum.in.dbpra.model.dao.TimetableDAO.EmptyTimetableException;
 
 public class TimetableServlet extends HttpServlet {
 
@@ -21,6 +26,24 @@ public class TimetableServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		TimetableDAO dao = new TimetableDAO();
+		VisitorBean visitor = new VisitorBean();
+		
+		int id;
+		try {
+			id = Integer.parseInt(req.getParameter("id"));
+		} catch (NumberFormatException e) {
+			id = 1;
+		}
+		visitor.setUserID(id);
+		try {
+			dao.getTimetable(visitor);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		} catch (EmptyTimetableException e) {
+			e.printStackTrace();
+		}
+		req.setAttribute("visitor", visitor);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/Timetable.jsp");
 		dispatcher.forward(req, resp);
 	}

@@ -1,7 +1,11 @@
 package de.tum.in.dbpra.model.bean;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 public class VisitorBean extends UserAccountBean {
 
@@ -73,10 +77,18 @@ public class VisitorBean extends UserAccountBean {
 		return timetable;
 	}
 
+	public Set<String> getScheduleDays() {
+		return new TreeSet<String>(getTimetable()
+				.stream()
+				.map(ScheduleBean::getDateWithoutTime)
+				.collect(Collectors.toSet()));
+	}
+	
 	public void addSchedule(ScheduleBean schedule) {
 		this.timetable.add(schedule);
+		Collections.sort(this.timetable);
 	}
-
+	
 	public ArrayList<PurchaseBean> getPurchases() {
 		return purchases;
 	}
