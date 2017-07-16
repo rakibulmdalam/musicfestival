@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="java.util.HashMap"%>
+<%@ page import="java.util.Map"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.Set"%>
+<%@ page import="de.tum.in.dbpra.model.bean.ScheduleBean"%>
+<%@ page import="de.tum.in.dbpra.model.bean.StageBean"%>
 <!DOCTYPE html>
 <html>
 <jsp:include page="head.jsp">
@@ -26,60 +32,42 @@
 						<label class="label">Search query</label>
 					</div>
 					<div class="field-body">
-						<div class="field has-addons">
+						<form class="field has-addons" method="get">
 							<p class="control">
-								<span class="select"> <select>
-										<option>Band</option>
-										<option>Genre</option>
-										<option>Stage</option>
+								<span class="select"> <select name="type">
+									<% String type = request.getParameter("type"); %>
+										<option value="band" <%= type != null && type.equals("band") ? "selected" : "" %>>Band</option>
+										<option value="genre" <%= type != null && type.equals("genre") ? "selected" : "" %>>Genre</option>
+										<option value="stage" <%= type != null && type.equals("stage") ? "selected" : "" %>>Stage</option>
 								</select>
 								</span>
 							</p>
 							<p class="control is-expanded">
+								<% String query = request.getParameter("query"); %>
 								<input class="input" type="text"
-									placeholder="Search by band, genre or stage">
+									placeholder="Search by band, genre or stage" name="query" value="<%= query != null ? query : "" %>">
 							</p>
 							<p class="control">
-								<a class="button is-primary"> Search </a>
+								<button type="submit" class="button is-primary"> Search </button>
 							</p>
-						</div>
-					</div>
-				</div>
-				<div class="field is-horizontal">
-					<div class="field-label is-normal">
-						<label class="label">Time range</label>
-					</div>
-					<div class="field-body">
-						<div class="field has-addons">
-							<p class="control is-expanded">
-								<span class="select is-fullwidth"> <select
-									name="start-time">
-										<option value="11">11 am</option>
-										<option value="12">12 noon</option>
-										<option value="13">1 pm</option>
-								</select>
-								</span>
-							</p>
-						</div>
-						<div class="field has-addons">
-							<p class="control is-expanded">
-								<span class="select is-fullwidth"> <select
-									name="end-time">
-										<option value="11">11 am</option>
-										<option value="12">12 noon</option>
-										<option value="13" selected="selected">1 pm</option>
-								</select>
-								</span>
-							</p>
-						</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 	<section class="section">
-		<h2 class="festival-day-label">Tuesday, 25th July 2017</h2>
-		<div class="timetable">
+		<%
+		if (request.getAttribute("schedules") == null || request.getAttribute("dates") == null) {
+		%>
+			<h2 class="has-text-centered">No schedules matching your query were found</h2>
+		<%
+		} else {
+			HashMap<String, HashMap<String, List<ScheduleBean>>> schedules = (HashMap)request.getAttribute("schedules");
+			for (String date : (Set<String>)request.getAttribute("dates")) {
+		%>
+			<h2 class="festival-day-label"><%=date%></h2>
+			<div class="timetable">
 			<div class="intervals">
 				<div class="interval">12PM</div>
 				<div class="interval">1PM</div>
@@ -96,129 +84,38 @@
 				<div class="interval">12AM</div>
 				<div class="interval">1AM</div>
 			</div>
+			<% HashMap<String, List<ScheduleBean>> schedulesOnDate = schedules.get(date);
+			for (Map.Entry<String, List<ScheduleBean>> schedulesByStage : schedulesOnDate.entrySet()) { %>	
 			<div class="stage-label">
-				<span class="stage-label__text">Mainstage</span>
+				<span class="stage-label__text"><%= schedulesByStage.getKey() %></span>
 			</div>
 			<div class="time-slots">
-				<div class="time-slot time-slot--fixed time-slot--180mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/85-5880ca9f51eec.jpg')"></div>
+				<%
+				ScheduleBean prevSchedule = null;
+				for (ScheduleBean schedule : schedulesByStage.getValue()) {
+					if (prevSchedule != null) {
+						long minutesAfterPrev = (schedule.getTimeStartPlaying().getTime() - prevSchedule.getTimeFinishPlaying().getTime()) / (1000 * 60); %>
+						<div class="time-slot time-slot--empty time-slot--<%= minutesAfterPrev %>mins"></div>
+				<%
+					}
+					prevSchedule = schedule;
+				%>
+				<div class="time-slot time-slot--fixed time-slot--<%= schedule.getDurationInMinutes()%>mins">
+					<div class="time-slot__image" style="background-image: url('<%= schedule.getBand().getPhotoUrl() %>')"></div>
 					<div class="time-slot__text">
-						<h2 class="time-slot__title">Carl Cox</h2>
-						<h4 class="time-slot__info">12PM-3PM</h4>
+						<h2 class="time-slot__title"><%= schedule.getBand().getName() %></h2>
+						<h4 class="time-slot__info"><%=schedule.getFormattedTimeStartPlaying() %>-<%=schedule.getFormattedTimeFinishPlaying() %></h4>
 					</div>
 					<button class="time-slot__button delete delete--add-button"></button>
 				</div>
-				<div class="time-slot time-slot--fixed time-slot--60mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/668-595cb88c2bd69.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Lucas & Steve</h2>
-						<h4 class="time-slot__info">3PM-4PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
-				<div class="time-slot time-slot--empty time-slot--60mins"></div>
-				<div class="time-slot time-slot--fixed time-slot--60mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/226-58860fff53082.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Sunnery James & Ryan Marciano</h2>
-						<h4 class="time-slot__info">4PM-5PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
-			</div>
-			<div class="stage-label">
-				<span class="stage-label__text">Trans energy</span>
-			</div>
-			<div class="time-slots">
-				<div class="time-slot time-slot--empty time-slot--30mins"></div>
-				<div class="time-slot time-slot--fixed time-slot--180mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/85-5880ca9f51eec.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Carl Cox</h2>
-						<h4 class="time-slot__info">12PM-3PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
-				<div class="time-slot time-slot--empty time-slot--30mins"></div>
-				<div class="time-slot time-slot--fixed time-slot--60mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/668-595cb88c2bd69.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Lucas & Steve</h2>
-						<h4 class="time-slot__info">3PM-4PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
-				<div class="time-slot time-slot--empty time-slot--60mins"></div>
-				<div class="time-slot time-slot--fixed time-slot--60mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/226-58860fff53082.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Sunnery James & Ryan Marciano</h2>
-						<h4 class="time-slot__info">4PM-5PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
-			</div>
-			<div class="stage-label">
-				<span class="stage-label__text">Elrow</span>
-			</div>
-			<div class="time-slots">
-				<div class="time-slot time-slot--empty time-slot--180mins"></div>
-				<div class="time-slot time-slot--fixed time-slot--60mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/85-5880ca9f51eec.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Carl Cox</h2>
-						<h4 class="time-slot__info">12PM-3PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
-				<div class="time-slot time-slot--empty time-slot--90mins"></div>
-				<div class="time-slot time-slot--fixed time-slot--120mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/668-595cb88c2bd69.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Lucas & Steve</h2>
-						<h4 class="time-slot__info">3PM-4PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
-				<div class="time-slot time-slot--empty time-slot--60mins"></div>
-				<div class="time-slot time-slot--fixed time-slot--60mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/226-58860fff53082.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Sunnery James & Ryan Marciano</h2>
-						<h4 class="time-slot__info">4PM-5PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
-			</div>
-			<div class="stage-label">
-				<span class="stage-label__text">My House</span>
-			</div>
-			<div class="time-slots">
-				<div class="time-slot time-slot--empty time-slot--30mins"></div>
-				<div class="time-slot time-slot--fixed time-slot--60mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/226-58860fff53082.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Sunnery James & Ryan Marciano</h2>
-						<h4 class="time-slot__info">4PM-5PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
-			</div>
-			<div class="stage-label">
-				<span class="stage-label__text">Drumcode</span>
-			</div>
-			<div class="time-slots">
-				<div class="time-slot time-slot--empty time-slot--60mins"></div>
-				<div class="time-slot time-slot--fixed time-slot--360mins">
-					<div class="time-slot__image" style="background-image: url('https://www.tomorrowland.com/src/Frontend/Files/line-up/artists/600x/226-58860fff53082.jpg')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title">Sunnery James & Ryan Marciano</h2>
-						<h4 class="time-slot__info">4PM-5PM</h4>
-					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
-				</div>
+				<%
+				}
+				%>
 			</div>
 		</div>
+		<% } %>
+		<% } %>
+		<% } %>
 	</section>
 </body>
 </html>

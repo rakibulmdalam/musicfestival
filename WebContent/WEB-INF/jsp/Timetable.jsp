@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="de.tum.in.dbpra.model.bean.VisitorBean"%>
 <%@ page import="de.tum.in.dbpra.model.bean.ScheduleBean"%>
+<%@ page import="java.util.Set" %>
+<%@ page import="java.util.stream.Collectors" %>
 
 <jsp:useBean id="visitor" scope="request"
 	class="de.tum.in.dbpra.model.bean.VisitorBean"></jsp:useBean>
@@ -29,8 +31,8 @@
 			<div class="column is-6 is-offset-3">
 				<% if (visitor.getTimetable().isEmpty()) {%>
 					<h2 class="festival-day-label">You haven't added any schedule to your timetable! Add them using the search tab.</h2>
-				<% } else { %>
-				<% for (String day : visitor.getScheduleDays()) { %>
+				<% } else {
+					for (String day : (Set<String>)request.getAttribute("scheduleDays")) { %>
 					<dl class="section__festival-day">
 					<dt class="festival-day-label"><%= day %></dt>
 

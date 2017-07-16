@@ -49,7 +49,11 @@ public class TimetableDAO extends DAO {
 			
 			visitor.addSchedule(schedule);
 		}
-
+		
+		rs.close();
+		pstmt.close();
+		con.close();
+		
 		if (!hasResults) {
 			throw new EmptyTimetableException("Visitor has an empty timetable");
 		}

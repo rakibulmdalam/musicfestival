@@ -40,7 +40,7 @@ public class ScheduleBean implements Comparable<ScheduleBean>{
 	}
 	
 	public String getFormattedTimeStartPlaying() {
-		DateFormat dateFormat = new SimpleDateFormat("h.ma");
+		DateFormat dateFormat = new SimpleDateFormat("hh.mma");
 		return dateFormat.format(this.timeStartPlaying);
 	}
 
@@ -53,14 +53,20 @@ public class ScheduleBean implements Comparable<ScheduleBean>{
 	}
 
 	public String getFormattedTimeFinishPlaying() {
-		DateFormat dateFormat = new SimpleDateFormat("h.ma");
+		DateFormat dateFormat = new SimpleDateFormat("hh.mma");
 		return dateFormat.format(this.timeFinishPlaying);
 	}
 	
 	public void setTimeFinishPlaying(Date timeFinishPlaying) {
 		this.timeFinishPlaying = timeFinishPlaying;
 	}
-
+	
+	public long getDurationInMinutes() {
+		long duration = timeFinishPlaying.getTime() - timeStartPlaying.getTime();
+		long durationInMinutes = duration / (1000 * 60);
+		return durationInMinutes;
+	}
+	
 	public Date getTimeLeaveStage() {
 		return timeLeaveStage;
 	}

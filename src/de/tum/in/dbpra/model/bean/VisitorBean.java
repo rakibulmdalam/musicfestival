@@ -3,9 +3,6 @@ package de.tum.in.dbpra.model.bean;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 public class VisitorBean extends UserAccountBean {
 
@@ -75,13 +72,6 @@ public class VisitorBean extends UserAccountBean {
 
 	public ArrayList<ScheduleBean> getTimetable() {
 		return timetable;
-	}
-
-	public Set<String> getScheduleDays() {
-		return new TreeSet<String>(getTimetable()
-				.stream()
-				.map(ScheduleBean::getDateWithoutTime)
-				.collect(Collectors.toSet()));
 	}
 	
 	public void addSchedule(ScheduleBean schedule) {
