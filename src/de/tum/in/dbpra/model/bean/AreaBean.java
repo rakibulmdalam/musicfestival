@@ -2,15 +2,15 @@ package de.tum.in.dbpra.model.bean;
 
 public class AreaBean {
 
-	private String id;
+	private Integer id;
 	private String name;
 	private String type; // TODO: use enum
 
-	public String getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
