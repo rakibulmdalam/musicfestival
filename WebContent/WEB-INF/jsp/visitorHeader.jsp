@@ -28,7 +28,7 @@
 				<li class="${param.currentTab eq 'profile' ? 'is-active' : ''}">
 <!-- 				<form action="./visitor" method ="post" name="profilesubmit"> -->
 					<a
-					href="./visitor">Profile</a>
+					href="./visitor?userID=${param.userID}">Profile</a>
 <!-- 				</form> -->
 				
 				</li>

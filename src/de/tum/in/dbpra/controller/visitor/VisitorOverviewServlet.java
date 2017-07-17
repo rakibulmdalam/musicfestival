@@ -25,32 +25,51 @@ public class VisitorOverviewServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//String userID = request.getParameter("userID");
-		//request.setAttribute("userID", userID);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp");
-		dispatcher.forward(request, response);
-	}
+				int userID =  Integer.parseInt(request.getParameter("userID"));
+				//request.setParameter("userID", userID);
+				VisitorOverviewDAO dao = new VisitorOverviewDAO();
+				//UserAccountBean user = new UserAccountBean();
+				VisitorBean visitor = new VisitorBean();
+				//UserAccountBean user = (UserAccountBean) request.getAttribute("user");
+				visitor.setUserID(userID);
+				try{
+					dao.getVisitorAccountOverview(visitor);
+					request.setAttribute("visitor", visitor);
+				}
+				catch (Throwable e) {
+					e.printStackTrace();
+					request.setAttribute("error", e.getMessage());
+				}
+				
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp");
+				dispatcher.forward(request, response);
+
+			}
+
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			VisitorOverviewDAO dao = new VisitorOverviewDAO();
-			//UserAccountBean user = new UserAccountBean();
-			VisitorBean visitor = new VisitorBean();
-			//int id = Integer.valueOf(request.getAttribute("userID"));
-			visitor.setUserID((int) request.getAttribute("userID"));
-			dao.getVisitorAccountOverview(visitor);
-			request.setAttribute("visitor", visitor);
-
-
-		} catch (Throwable e) {
-			e.printStackTrace();
-			request.setAttribute("error", e.getMessage());
-		}
-				
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp"); 
-		dispatcher.forward(request, response);
+		//int userID =  Integer.parseInt(request.getParameter("userID"));
+		//request.setParameter("userID", userID);
+		VisitorOverviewDAO dao = new VisitorOverviewDAO();
+		//UserAccountBean user = new UserAccountBean();
+		VisitorBean visitor = new VisitorBean();
+		UserAccountBean user = (UserAccountBean) request.getAttribute("user");
+		visitor.setUserID(user.getUserID());
+		visitor.setFirstName(user.getUserName());
+//		try{
+//			dao.getVisitorAccountOverview(visitor);
+//			request.setAttribute("visitor", visitor);
+//		}
+//		catch (Throwable e) {
+//			e.printStackTrace();
+//			request.setAttribute("error", e.getMessage());
+//		}
 		
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp");
+		dispatcher.forward(request, response);
 
 	}
 

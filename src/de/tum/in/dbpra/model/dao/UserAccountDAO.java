@@ -12,7 +12,8 @@ public class UserAccountDAO extends DAO {
 	public void checkUserAccount(UserAccountBean user)
 			throws UserNotFoundException, SQLException, ClassNotFoundException {
 
-		String query = "SELECT * FROM festivaluser WHERE email = ? and password = ?;";
+		String query = "SELECT f.*, v.first_name FROM festivaluser f, visitor v "
+				+ "where v.id = f.id and email = ? and password = ?;";
 
 		Connection con = getConnection();
 
@@ -28,6 +29,7 @@ public class UserAccountDAO extends DAO {
 			user.setUserID(rs.getInt("id"));
 			user.setPhone(rs.getString("phone"));
 			user.setPhotoUrl(rs.getString("picture"));
+			user.setUserName(rs.getString("first_name"));
 		} else {
 			throw new UserNotFoundException("Username or password given is wrong!");
 		}

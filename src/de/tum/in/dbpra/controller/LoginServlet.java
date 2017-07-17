@@ -49,38 +49,44 @@ public class LoginServlet extends HttpServlet {
 			user.setPassword(request.getParameter("password"));
 			dao.checkUserAccount(user);
 			request.setAttribute("user", user);
-			String userID = request.getParameter("userID");
+			int userID = user.getUserID();
 			request.setAttribute("userID", userID);
+			
 			Role employee = Role.EMPLOYEE;
 			Role band = Role.BAND; 
 			Role sponsor = Role.SPONSOR; 
 			Role visitor = Role.VISITOR;
 			if ( user.getRole() ==  employee ){
-				RequestDispatcher dispatcher = request.getRequestDispatcher("./employee"); 
-				dispatcher.forward(request, response);
-				//response.sendRedirect("./employee") ; 
+				//RequestDispatcher dispatcher = request.getRequestDispatcher("./employee"); 
+				//dispatcher.forward(request, response);
+				response.sendRedirect("./employee") ; 
 				return;}  
-			if ( user.getRole() ==  band ){ 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("./band"); 
-				dispatcher.forward(request, response);
-				//response.sendRedirect("./band") ; 
+			else if ( user.getRole() ==  band ){ 
+				//RequestDispatcher dispatcher = request.getRequestDispatcher("./band"); 
+				//dispatcher.forward(request, response);
+				response.sendRedirect("./band") ; 
 				return;}  
-			if ( user.getRole() ==  sponsor ){ 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("./sponsor"); 
-				dispatcher.forward(request, response);
-				//response.sendRedirect("./sponsor") ; 
+			else if ( user.getRole() ==  sponsor ){ 
+				//RequestDispatcher dispatcher = request.getRequestDispatcher("./sponsor"); 
+				//dispatcher.forward(request, response);
+				response.sendRedirect("./sponsor") ; 
 				return;}  
-			if ( user.getRole() ==  visitor ){ 
+			else if ( user.getRole() ==  visitor ){ 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("./visitor"); 
 				dispatcher.forward(request, response);
 				//response.sendRedirect("./visitor") ; 
 				return;}  
+			else {
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Login.jsp"); 
+				dispatcher.forward(request, response); }
+
 
 		} catch (Throwable e) {
 			e.printStackTrace();
 			request.setAttribute("error", e.getMessage());
 		}
-				
+			
+		
 		
 		
 
