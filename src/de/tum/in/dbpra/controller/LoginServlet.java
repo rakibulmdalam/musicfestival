@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.tum.in.dbpra.model.bean.Role;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.dao.UserAccountDAO;
 
@@ -44,17 +45,44 @@ public class LoginServlet extends HttpServlet {
 		try {
 			UserAccountDAO dao = new UserAccountDAO();
 			UserAccountBean user = new UserAccountBean();
-			user.setUserName(request.getParameter("username"));
+			user.setEmail(request.getParameter("email"));
 			user.setPassword(request.getParameter("password"));
 			dao.checkUserAccount(user);
 			request.setAttribute("user", user);
+			String userID = request.getParameter("userID");
+			request.setAttribute("userID", userID);
+			Role employee = Role.EMPLOYEE;
+			Role band = Role.BAND; 
+			Role sponsor = Role.SPONSOR; 
+			Role visitor = Role.VISITOR;
+			if ( user.getRole() ==  employee ){
+				RequestDispatcher dispatcher = request.getRequestDispatcher("./employee"); 
+				dispatcher.forward(request, response);
+				//response.sendRedirect("./employee") ; 
+				return;}  
+			if ( user.getRole() ==  band ){ 
+				RequestDispatcher dispatcher = request.getRequestDispatcher("./band"); 
+				dispatcher.forward(request, response);
+				//response.sendRedirect("./band") ; 
+				return;}  
+			if ( user.getRole() ==  sponsor ){ 
+				RequestDispatcher dispatcher = request.getRequestDispatcher("./sponsor"); 
+				dispatcher.forward(request, response);
+				//response.sendRedirect("./sponsor") ; 
+				return;}  
+			if ( user.getRole() ==  visitor ){ 
+				RequestDispatcher dispatcher = request.getRequestDispatcher("./visitor"); 
+				dispatcher.forward(request, response);
+				//response.sendRedirect("./visitor") ; 
+				return;}  
 
 		} catch (Throwable e) {
 			e.printStackTrace();
 			request.setAttribute("error", e.getMessage());
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Login.jsp");
-		dispatcher.forward(request, response);
+				
+		
+		
 
 	}
 
