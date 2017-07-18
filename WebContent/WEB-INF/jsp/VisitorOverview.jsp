@@ -11,27 +11,29 @@
 	<jsp:param name="pageTitle" value="Overview" />
 </jsp:include>
 <body>
+<%
+ 				if (user.getUserName() != null) { 
+ 				
+ 			%>
 	<jsp:include page="visitorHeader.jsp">
 		<jsp:param name="firstName" value="${user.getUserName()}" /> 
 		<jsp:param name="photoUrl" value="Whatever"/>
 		<jsp:param name="userID" value="${user.getUserID()}" />
 		<jsp:param name="currentTab" value="profile" />
 	</jsp:include>
+	<% } %>
 	</br>
 	
-	<%
- 				if (request.getAttribute("error") != null) { 
- 				
- 			%> 
- 			<p>User not found!</p> 
-			<%=request.getAttribute("error")%>
-
-			<% } else if (visitor.getFirstName() != null) { %>
-			</br><b>First Name:</b><%= visitor.getFirstName() %></br>
-			<b>Last Name:</b><%= visitor.getLastName() %></br>
-			<b>DOB:</b><%= visitor.getDateOfBirth() %></br>
-			<b>Balance: € </b><%= visitor.getBalance() %></br>
-			<b>Photo: </b><%= visitor.getPhotoUrl() %></br>
+		<%  if (visitor.getFirstName() != null) { %>
+			<div style="padding:100px;">
+			<img src = ${visitor.getPhotoUrl()} width = 100 height = 100 align= "right"/> </br>
+			
+			<h2>Your Profile</h2></br>
+			</br><b>First Name: </b><%= visitor.getFirstName() %></br></br>
+			<b>Last Name: </b><%= visitor.getLastName() %></br></br>
+			<b>DOB: </b><%= visitor.getDateOfBirth() %></br></br>
+			<b>Balance: € </b><%= visitor.getBalance() %></br></br>
+			</div>
 			<% } %>
 			
 </body>
