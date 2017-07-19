@@ -25,8 +25,11 @@
 			<ul>
 				<li class="${param.currentTab eq 'profile' ? 'is-active' : ''}"><a
 					href="/band">Profile</a></li>
+					
 				<li class="${param.currentTab eq 'notes' ? 'is-active' : ''}"><a
 					href="/band/notes">Notes</a></li>
+				<li class="${param.currentTab eq 'scheduler' ? 'is-active' : ''}"><a
+					href="/band/scheduler">Scheduler</a></li>
 				<%
 					if (request.getParameter("hasProducts") != null) {
 				%>
