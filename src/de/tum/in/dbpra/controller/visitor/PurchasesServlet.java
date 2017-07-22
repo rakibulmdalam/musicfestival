@@ -1,6 +1,7 @@
 package de.tum.in.dbpra.controller.visitor;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,8 @@ import de.tum.in.dbpra.model.bean.PurchaseBean;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
 import de.tum.in.dbpra.model.dao.VisitorPurchaseDAO;
+import de.tum.in.dbpra.model.dao.VisitorPurchaseDAO.EmptyPurchaseException;
+import de.tum.in.dbpra.model.dao.TimetableDAO.EmptyTimetableException;
 
 public class PurchasesServlet extends HttpServlet {
 
@@ -38,8 +41,15 @@ public class PurchasesServlet extends HttpServlet {
 		try {
 			purchase.setPurchaseBeans(dao.getVisitorPurchases(visitor));
 			req.setAttribute("purchase", purchase);
-
-		} catch (Throwable e) {
+ 
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (EmptyPurchaseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 			req.setAttribute("error", e.getMessage());
 		}

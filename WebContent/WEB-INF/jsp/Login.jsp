@@ -8,6 +8,7 @@
   <jsp:param name="pageTitle" value="Login" />
 </jsp:include>
 <body>
+			
 	<section class="hero is-fullheight is-dark">
 		<div class="hero-body">
 			<div class="container has-text-centered">
@@ -38,48 +39,30 @@
 								</p>
 							</div>
 						</form>
+						</br>
+						<% if (request.getAttribute("error") != null) { %>
+						<div class="notification is-primary">
+					
+						  <button class="delete"></button>
+						 	<strong><%=request.getAttribute("error")%></strong>
+						 
+						</div>
+					
+						
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-<!-- 			 <form method="post"> -->
-<!-- 				<label>Username:</label> <input type="text" name="username" -->
-<!-- 					placeholder="Username"> <label>Password:</label> <input -->
-<!-- 					type="password" name="password" placeholder="Password"> <input -->
-<!-- 					type="submit" id="login" value="Login" /> -->
-<!-- 			</form> -->
+	
 
-<%-- 			<% if (request.getParameter("Email") != null){ %> --%>
-<%-- 				<%= user.getRole() %>  --%>
-<%-- 			<%	} %> --%>
 			<%@ page import = "de.tum.in.dbpra.model.bean.Role" %>
 			
-			<%
-				if (request.getAttribute("error") != null) {
-			%>
-			<p>User not found!</p>
-			<%=request.getAttribute("error")%>
-
+			
 			<%
 				} else if (user.getRole() != null) { %>
 				<input type = "hidden" name = "userID" value = "${user.getUserID()}" >
 				<% } %>
-<%-- 				<%	Role employee = Role.EMPLOYEE; --%>
-<!-- // 	  				Role band = Role.BAND;  -->
-<!-- // 	 				Role sponsor = Role.SPONSOR;  -->
-<!-- // 	 				Role visitor = Role.VISITOR; -->
-<!-- //  					if ( user.getRole() ==  employee ){ -->
-<!-- //  						response.sendRedirect("./employee") ;  }   -->
-<!-- //  					if ( user.getRole() ==  band ){  -->
-<!-- //  						response.sendRedirect("./band") ;  }   -->
-<!-- //  					if ( user.getRole() ==  sponsor ){  -->
-<!-- //  						response.sendRedirect("./sponsor") ;  }   -->
-<!-- //  					if ( user.getRole() ==  visitor ){  -->
-<!-- //  						response.sendRedirect("./visitor") ;  }   -->
-<!-- //  				} -->
-
-<%-- 			 %> --%>
 			 
 </body>
 </html>

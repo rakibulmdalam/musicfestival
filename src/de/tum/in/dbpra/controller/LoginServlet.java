@@ -1,6 +1,7 @@
 package de.tum.in.dbpra.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import de.tum.in.dbpra.model.bean.Role;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.dao.UserAccountDAO;
+import de.tum.in.dbpra.model.dao.UserAccountDAO.UserNotFoundException;
 
 /**
  * Servlet implementation class CustomerServlet
@@ -73,28 +75,26 @@ public class LoginServlet extends HttpServlet {
 				 
 				return;}  
 			else if ( user.getRole() ==  band ){ 
-				//RequestDispatcher dispatcher = request.getRequestDispatcher("./band"); 
-				//dispatcher.forward(request, response);
 				response.sendRedirect("./band") ; 
 				return;}  
 			else if ( user.getRole() ==  sponsor ){ 
-				//RequestDispatcher dispatcher = request.getRequestDispatcher("./sponsor"); 
-				//dispatcher.forward(request, response);
+				
 				response.sendRedirect("./sponsor") ; 
 				return;}  
 			else if ( user.getRole() ==  visitor ){ 
-				//RequestDispatcher dispatcher = request.getRequestDispatcher("./visitor"); 
-				//dispatcher.forward(request, response);
+				
 				response.sendRedirect("./visitor") ; 
 				return;}  
-			else {
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Login.jsp"); 
-				dispatcher.forward(request, response); }
-
-
-		} catch (Throwable e) {
+ 
+		} catch (UserNotFoundException e){
 			e.printStackTrace();
 			request.setAttribute("error", e.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 			
 		if (request.getAttribute("error")!=null){
