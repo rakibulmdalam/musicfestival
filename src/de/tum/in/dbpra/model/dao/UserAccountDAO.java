@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.tum.in.dbpra.model.bean.Role;
+import de.tum.in.dbpra.model.bean.SponsorBean;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
+import de.tum.in.dbpra.model.bean.VisitorBean;
 
 public class UserAccountDAO extends DAO {
 	public void checkUserAccount(UserAccountBean user)
@@ -14,11 +16,11 @@ public class UserAccountDAO extends DAO {
 
 		String query = "SELECT f.* FROM festivaluser f where email = ? and password = ?;";
 		
-		String visitor = "SELECT first_name from visitor where id = ?;";
+		String visitor = "SELECT * from visitor where id = ?;";
 		
-		String provider = "SELECT name from provider where id = ?;";
+		String provider = "SELECT * from provider where id = ?;";
 		
-		String employee = "SELECT first_name from employee where id = ?;";
+		String employee = "SELECT * from employee where id = ?;";
 
 		Connection con = getConnection();
 
@@ -75,6 +77,7 @@ public class UserAccountDAO extends DAO {
 				if(rse.next()){
 					
 					user.setUserName(rse.getString("first_name"));
+					user.setEmployeeRole(rse.getString("role"));
 				}
 				rse.close();
 				pse.close();

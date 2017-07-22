@@ -63,9 +63,14 @@ public class LoginServlet extends HttpServlet {
 			Role sponsor = Role.SPONSOR; 
 			Role visitor = Role.VISITOR;
 			if ( user.getRole() ==  employee ){
-				//RequestDispatcher dispatcher = request.getRequestDispatcher("./emp"); 
-				//dispatcher.forward(request, response);
-				response.sendRedirect("./emp") ; 
+				
+				if (user.getEmployeeRole().equals("ADMIN")){
+					response.sendRedirect("./admin") ;
+				}
+				else {
+					response.sendRedirect("./employee") ;
+				}
+				 
 				return;}  
 			else if ( user.getRole() ==  band ){ 
 				//RequestDispatcher dispatcher = request.getRequestDispatcher("./band"); 
