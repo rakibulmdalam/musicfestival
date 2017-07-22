@@ -20,7 +20,7 @@ import de.tum.in.dbpra.model.bean.StageBean;
 public class NoteDAO extends DAO {
 	
 	public ArrayList<NoteNotificationBean> getNotesList(int employeeID) throws SQLException, ClassNotFoundException {
-		String sql = "SELECT n.*, ntfy.time_seen, a.name as area_name FROM note n " 
+		String sql = "SELECT n.*, ntfy.seen, a.name as area_name FROM note n " 
 				+ "JOIN note_notification ntfy ON n.id = ntfy.note_id "
 				+ "JOIN employee e ON e.id = ntfy.employee_id "
 				+ "JOIN area a ON a.id = n.area_id "
