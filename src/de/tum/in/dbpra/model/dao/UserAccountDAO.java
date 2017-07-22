@@ -12,8 +12,12 @@ public class UserAccountDAO extends DAO {
 	public void checkUserAccount(UserAccountBean user)
 			throws UserNotFoundException, SQLException, ClassNotFoundException {
 
+<<<<<<< HEAD
+		String query = "SELECT * FROM festivaluser WHERE username = ? and password = ?;";
+=======
 		String query = "SELECT f.*, v.first_name FROM festivaluser f, visitor v "
 				+ "where v.id = f.id and email = ? and password = ?;";
+>>>>>>> branch 'Milestone-1' of https://github.com/rakibulmdalam/musicfestival.git
 
 		Connection con = getConnection();
 
