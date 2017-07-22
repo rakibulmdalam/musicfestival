@@ -13,9 +13,8 @@
 </jsp:include>
 <body>
 	<jsp:include page="visitorHeader.jsp">
-		<jsp:param name="firstName" value="Helene" />
-		<jsp:param name="photoUrl"
-			value="https://uinames.com/api/photos/female/21.jpg" />
+		<jsp:param name="firstName" value="${user.getUserName()}" />
+		<jsp:param name="photoUrl" value="${user.getPhotoUrl()}" />
 		<jsp:param name="currentTab" value="timetable" />
 	</jsp:include>
 	<div class="tabs is-centered is-marginless">

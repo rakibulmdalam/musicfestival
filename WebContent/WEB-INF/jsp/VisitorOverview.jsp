@@ -11,22 +11,12 @@
 	<jsp:param name="pageTitle" value="Overview" />
 </jsp:include>
 <body>
-	<%
-		if (user.getUserName() != null) {
-	%>
 	<jsp:include page="visitorHeader.jsp">
 		<jsp:param name="firstName" value="${user.getUserName()}" />
 		<jsp:param name="photoUrl" value="${user.getPhotoUrl()}" />
-		<jsp:param name="userID" value="${user.getUserID()}" />
 		<jsp:param name="currentTab" value="profile" />
 	</jsp:include>
-	<%
-		}
-	%>
 
-	<%
-		if (visitor.getFirstName() != null) {
-	%>
 	<div class="section">
 		<div class="columns">
 			<div class="column is-offset-one-quarter is-half">
@@ -51,9 +41,6 @@
 			</div>
 		</div>
 	</div>
-	<%
-		}
-	%>
 
 </body>
 </html>

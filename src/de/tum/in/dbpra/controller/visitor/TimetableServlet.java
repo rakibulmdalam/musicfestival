@@ -50,13 +50,7 @@ public class TimetableServlet extends HttpServlet {
 		TimetableDAO dao = new TimetableDAO();
 		VisitorBean visitor = new VisitorBean();
 		
-		int id;
-		try {
-			id = Integer.parseInt(req.getParameter("id"));
-		} catch (NumberFormatException e) {
-			id = 1;
-		}
-		visitor.setUserID(id);
+		visitor.setUserID(user.getUserID());
 		try {
 			dao.getTimetable(visitor);
 		} catch (ClassNotFoundException | SQLException e) {
