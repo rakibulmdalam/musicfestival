@@ -10,8 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.tum.in.dbpra.model.bean.AreaBean;
 import de.tum.in.dbpra.model.bean.BandBean;
 import de.tum.in.dbpra.model.bean.ScheduleBean;
+import de.tum.in.dbpra.model.dao.BandDAO;
 import de.tum.in.dbpra.model.dao.SchedulesDAO;
 import de.tum.in.dbpra.model.dao.SchedulesDAO.SearchQueryException;
 
@@ -29,22 +31,21 @@ public class BandSchedulerServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		SchedulesDAO schedulesDAO = new SchedulesDAO();
-    	
     	ScheduleBean scheduleBean = new ScheduleBean();
-    	
+    	BandDAO bandDAO = new BandDAO();
 		
 		ArrayList<ScheduleBean> schedules;
-		try {
-			schedules = schedulesDAO.getAllSchedules();
-			req.setAttribute("timetable", schedules);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/Timetable.jsp");
-		dispatcher.forward(req, resp);
-			
-		} catch (ClassNotFoundException | SQLException | SearchQueryException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		
+		ArrayList<BandBean> bands = null;
+		
+		try {
+			bands = bandDAO.getBandList();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
 		}
+		
+		req.setAttribute("bands", bands);
+		
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/BandScheduler.jsp");
 		dispatcher.forward(req, resp);
