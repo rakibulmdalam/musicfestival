@@ -30,8 +30,8 @@
 	<div class="section">
 		<div class="columns">
 			<div class="column is-offset-one-quarter is-half">
-				<div class="content">
-					<h3>
+				<div class="content has-text-centered">
+					<h4>
 						First Name:
 						<b><%=visitor.getFirstName()%></b>
 						<br>
@@ -46,7 +46,7 @@
 					
 						Balance: €
 						<b><%=visitor.getBalance()%></b>
-					</h3>
+					</h4>
 				</div>
 			</div>
 		</div>

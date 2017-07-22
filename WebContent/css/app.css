@@ -129,7 +129,7 @@ html {
 .content h2:not(:first-child) {
 	margin-top: 2em;
 }
-.content h3 {
+.content h4 {
 	line-height: 1.5;
 }
 
