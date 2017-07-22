@@ -16,7 +16,7 @@
 				%>
 			</h1>
 			<h2 class="subtitle">
-				<strong>Hello ${param.firstName}!</strong> <a href="./logout"
+				<strong>Hello ${param.firstName}!</strong> <a href="/logout"
 					class="button is-light button--logout">logout</a>
 			</h2>
 
