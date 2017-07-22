@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
-import de.tum.in.dbpra.model.dao.VisitorOverviewDAO;
+import de.tum.in.dbpra.model.dao.VisitorDAO;
 
 public class VisitorOverviewServlet extends HttpServlet {
 
@@ -25,13 +25,13 @@ public class VisitorOverviewServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				int userID =  Integer.parseInt(request.getParameter("userID"));
+				//int userID =  Integer.parseInt(request.getParameter("userID"));
 				//request.setParameter("userID", userID);
-				VisitorOverviewDAO dao = new VisitorOverviewDAO();
+				VisitorDAO dao = new VisitorDAO();
 				//UserAccountBean user = new UserAccountBean();
 				VisitorBean visitor = new VisitorBean();
-				//UserAccountBean user = (UserAccountBean) request.getAttribute("user");
-				visitor.setUserID(userID);
+				UserAccountBean user = (UserAccountBean) request.getSession(false).getAttribute("user");
+				visitor.setUserID(user.getUserID());
 				try{
 					dao.getVisitorAccountOverview(visitor);
 					request.setAttribute("visitor", visitor);
@@ -47,31 +47,6 @@ public class VisitorOverviewServlet extends HttpServlet {
 
 			}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		//int userID =  Integer.parseInt(request.getParameter("userID"));
-		//request.setParameter("userID", userID);
-		VisitorOverviewDAO dao = new VisitorOverviewDAO();
-		//UserAccountBean user = new UserAccountBean();
-		VisitorBean visitor = new VisitorBean();
-		UserAccountBean user = (UserAccountBean) request.getAttribute("user");
-		visitor.setUserID(user.getUserID());
-		visitor.setFirstName(user.getUserName());
-//		try{
-//			dao.getVisitorAccountOverview(visitor);
-//			request.setAttribute("visitor", visitor);
-//		}
-//		catch (Throwable e) {
-//			e.printStackTrace();
-//			request.setAttribute("error", e.getMessage());
-//		}
-		
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp");
-		dispatcher.forward(request, response);
-
-	}
 
 
 }

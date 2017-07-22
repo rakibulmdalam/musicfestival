@@ -8,6 +8,6 @@ public class Config {
 		public static final String PORT = "5432";
 		public static final String DB = "musicfestival";
 		public static final String USER = "postgres";
-		public static final String PASS = "12345";
+		public static final String PASS = "qwerty";
 	}
 }

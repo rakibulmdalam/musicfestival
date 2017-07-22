@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class LogoutServlet extends HttpServlet {
 
@@ -24,6 +25,8 @@ public class LogoutServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Login.jsp"); 
 		//dispatcher.forward(request, response);
+		HttpSession session = request.getSession();
+		session.invalidate();
 		response.sendRedirect("./login") ;
 	}
 

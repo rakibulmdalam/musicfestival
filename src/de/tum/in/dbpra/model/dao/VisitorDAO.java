@@ -10,7 +10,7 @@ import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
 import de.tum.in.dbpra.model.dao.UserAccountDAO.UserNotFoundException;
 
-public class VisitorOverviewDAO extends DAO {
+public class VisitorDAO extends DAO {
 
 	public void getVisitorAccountOverview(VisitorBean visitor)
 			throws UserNotFoundException, SQLException, ClassNotFoundException {

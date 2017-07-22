@@ -25,17 +25,12 @@
 	<div class="hero-foot">
 		<div class="tabs is-boxed is-centered is-marginless">
 			<ul>
-				<li class="${param.currentTab eq 'profile' ? 'is-active' : ''}">
-<!-- 				<form action="./visitor" method ="post" name="profilesubmit"> -->
-					<a
-					href="./visitor?userID=${param.userID}">Profile</a>
-<!-- 				</form> -->
-				
-				</li>
+				<li class="${param.currentTab eq 'profile' ? 'is-active' : ''}"><a
+					href="/visitor">Profile</a></li>
 				<li class="${param.currentTab eq 'timetable' ? 'is-active' : ''}"><a
-					href="./visitor/timetable">Timetable</a></li>
+					href="/visitor/timetable">Timetable</a></li>
 				<li class="${param.currentTab eq 'purchases' ? 'is-active' : ''}"><a
-					href="./visitor/purchases">Purchases</a></li>
+					href="/visitor/purchases">Purchases</a></li>
 			</ul>
 		</div>
 	</div>
