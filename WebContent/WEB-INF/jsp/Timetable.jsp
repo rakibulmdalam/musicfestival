@@ -64,7 +64,10 @@
 								</div>
 							</div>
 							<div class="media-right">
-								<button class="delete"></button>
+								<form method="post">
+									<input class="input is-hidden" type="number" name="deleteId" value=<%=item.getId() %>>
+									<button class="delete" type="submit"></button>
+								</form>
 							</div>
 						</article>
 					</dd>
@@ -76,5 +79,13 @@
 			</div>
 		</div>
 	</section>
+	<% if (request.getParameter("deleted") != null) { %>
+	<article id="confirmation-message" class="message is-success">
+  		<div class="message-header">
+    		<p>Schedule deleted from your timetable!</p>
+    		<button class="delete" onclick="removeConfirmation()"></button>
+  		</div>
+	</article>
+	<% } %>
 </body>
 </html>

@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import de.tum.in.dbpra.model.bean.Role;
 import de.tum.in.dbpra.model.bean.ScheduleBean;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
@@ -33,24 +32,12 @@ public class TimetableServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
-		UserAccountBean user;
+		UserAccountBean user = (UserAccountBean) session.getAttribute("user");
 
-		if (session == null || session.getAttribute("user") == null) {
-			resp.sendRedirect("/login");
-			return;
-		} else {
-			user = (UserAccountBean) session.getAttribute("user");
-			if (user.getRole() != Role.VISITOR) {
-				session.invalidate();
-				resp.sendRedirect("/login");
-				return;
-			}
-		}
-		
-		TimetableDAO dao = new TimetableDAO();
 		VisitorBean visitor = new VisitorBean();
-		
 		visitor.setUserID(user.getUserID());
+
+		TimetableDAO dao = new TimetableDAO();
 		try {
 			dao.getTimetable(visitor);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -58,10 +45,9 @@ public class TimetableServlet extends HttpServlet {
 		} catch (EmptyTimetableException e) {
 			e.printStackTrace();
 		}
-		TreeSet<String> scheduleDays = new TreeSet<String>(visitor.getTimetable()
-																  .stream()
-																  .map(ScheduleBean::getDateWithoutTime)
-																  .collect(Collectors.toSet()));
+
+		TreeSet<String> scheduleDays = new TreeSet<String>(
+				visitor.getTimetable().stream().map(ScheduleBean::getDateWithoutTime).collect(Collectors.toSet()));
 		req.setAttribute("scheduleDays", scheduleDays);
 		req.setAttribute("visitor", visitor);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/Timetable.jsp");
@@ -70,8 +56,19 @@ public class TimetableServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
+		HttpSession session = req.getSession(false);
+		UserAccountBean user = (UserAccountBean) session.getAttribute("user");
+		TimetableDAO dao = new TimetableDAO();
+
+		Integer deleteId = Integer.parseInt(req.getParameter("deleteId"));
+		try {
+			dao.deleteScheduleFromTimetable(deleteId, user.getUserID());
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
+		resp.sendRedirect("/visitor/timetable?deleted=true");
+
 	}
 
 }

@@ -178,3 +178,14 @@ html {
 .section__festival-day {
 	margin-bottom: 2rem;
 }
+
+#confirmation-message {
+	position: fixed;
+	bottom: 0;
+	z-index: 5;
+	width: 100%;
+}
+
+#confirmation-message .message-header {
+	border-radius: 0;
+}

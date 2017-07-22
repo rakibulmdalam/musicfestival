@@ -2,10 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Map"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Set"%>
 <%@ page import="de.tum.in.dbpra.model.bean.ScheduleBean"%>
 <%@ page import="de.tum.in.dbpra.model.bean.StageBean"%>
+
+	
 <!DOCTYPE html>
 <html>
 <jsp:include page="head.jsp">
@@ -105,7 +108,16 @@
 						<h2 class="time-slot__title"><%= schedule.getBand().getName() %></h2>
 						<h4 class="time-slot__info"><%=schedule.getFormattedTimeStartPlaying() %>-<%=schedule.getFormattedTimeFinishPlaying() %></h4>
 					</div>
-					<button class="time-slot__button delete delete--add-button"></button>
+					<form method="post">
+					<% ArrayList<Integer> visitorScheduleIds = (ArrayList<Integer>)request.getAttribute("visitorScheduleIds"); 
+						if (visitorScheduleIds.contains(schedule.getId())) { %>
+						<input class="input is-hidden" type="number" name="deleteId" value=<%=schedule.getId() %>>
+						<button class="time-slot__button delete" type="submit"></button>
+					<% } else { %>
+					<input class="input is-hidden" type="number" name="addId" value=<%=schedule.getId() %>>
+						<button class="time-slot__button delete delete--add-button"></button>
+					<% } %>
+					</form>
 				</div>
 				<%
 				}
@@ -116,5 +128,20 @@
 		<% } %>
 		<% } %>
 	</section>
+	<% if (request.getParameter("added") != null) { %>
+	<article id="confirmation-message" class="message is-success">
+  		<div class="message-header">
+    		<p>Schedule added to your timetable!</p>
+    		<button class="delete" onclick="removeConfirmation()"></button>
+  		</div>
+	</article>
+	<% } else if (request.getParameter("deleted") != null) { %>
+	<article id="confirmation-message" class="message is-success">
+  		<div class="message-header">
+    		<p>Schedule deleted from your timetable!</p>
+    		<button class="delete" onclick="removeConfirmation()"></button>
+  		</div>
+	</article>
+	<% } %>
 </body>
 </html>

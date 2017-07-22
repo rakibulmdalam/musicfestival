@@ -7,7 +7,7 @@
 			<h1 class="title is-1 title--branding is-spaced is-inline-flex">
 				<span class="title__logo">M</span>
 				<%
-					if (request.getParameter("photoUrl") != null) {
+					if (request.getParameter("photoUrl") != null && !request.getParameter("photoUrl").isEmpty()) {
 				%>
 				<span class="title__profile-pic"
 					style="background-image: url('${param.photoUrl}')"></span>

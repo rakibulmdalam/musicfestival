@@ -23,7 +23,6 @@ public class TimetableDAO extends DAO {
 				+ "AND b.id = u.id;";
 		
 		Connection con = getConnection();
-		con.setAutoCommit(false);
 		PreparedStatement pstmt = con.prepareStatement(query);
 		pstmt.setInt(1, visitor.getUserID());
 		ResultSet rs = pstmt.executeQuery();
@@ -57,6 +56,30 @@ public class TimetableDAO extends DAO {
 		if (!hasResults) {
 			throw new EmptyTimetableException("Visitor has an empty timetable");
 		}
+	}
+	
+	public void addScheduleToTimetable(Integer scheduleId, Integer visitorId) throws ClassNotFoundException, SQLException {
+		String query = "INSERT INTO visitor_schedule VALUES (?, ?);";
+		
+		Connection con = getConnection();
+		PreparedStatement pstmt = con.prepareStatement(query);
+		pstmt.setInt(1, visitorId);
+		pstmt.setInt(2, scheduleId);
+		pstmt.executeUpdate();
+		pstmt.close();
+		con.close();
+	}
+	
+	public void deleteScheduleFromTimetable(Integer scheduleId, Integer visitorId) throws ClassNotFoundException, SQLException {
+		String query = "DELETE FROM visitor_schedule WHERE visitor_id = ? AND schedule_id = ?;";
+		
+		Connection con = getConnection();
+		PreparedStatement pstmt = con.prepareStatement(query);
+		pstmt.setInt(1, visitorId);
+		pstmt.setInt(2, scheduleId);
+		pstmt.executeUpdate();
+		pstmt.close();
+		con.close();
 	}
 
 	public static class EmptyTimetableException extends Throwable {

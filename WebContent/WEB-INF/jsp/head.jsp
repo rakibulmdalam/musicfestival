@@ -8,5 +8,6 @@
 <link rel="stylesheet" type="text/css" href="/css/bulma.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/app.css" />
 <link rel="stylesheet" type="text/css" href="/css/timetable.css" />
+<script src="/js/app.js"></script>
 <title>M: The Music Festival | ${param.pageTitle}</title>
 </head>
