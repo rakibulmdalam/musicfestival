@@ -18,41 +18,44 @@
 		<jsp:param name="hasBandNotes" value="true" />
 		<jsp:param name="currentTab" value="notes" />
 	</jsp:include>
+	<section class="section">
+		<div class="columns">
+			<div class="column is-6 is-offset-3">	
 	
-	<h1>Band Notes</h1>
-	<p>Here, you can see all notes that were issued to you by bands.</p>
-	
-	<% ArrayList<NoteNotificationBean> notes = (ArrayList<NoteNotificationBean>) request.getAttribute("notes"); %>
-	
-	
-	<% if(notes.size() == 0) { %>
-		<em>You have not yet been assigned any notes by the administrator.</em>
-	<% } else { %>
-	<table>
-		<thead>
-			<tr>
-				<th>Area</th>
-				<th>Date/Time</th>
-				<th>Note</th>
-				<th>Seen?</th>
-			</tr>
-			
-		</thead>
-		
-		<tbody>
-			<%
-				for(NoteNotificationBean note : notes) {
-					%>					
-					<tr>
-						<td><%=note.getNote().getArea().getName() %></td>
-						<td><%=note.getNote().getCreationTime() %></td>
-						<td><%=note.getNote().getContent() %></td>
-						<td><%=note.getSeenTime() != null ? "yes" : "no" %></td>
-					</tr>
-					<%
-				}		
-			} %>
-		</tbody>
-	</table>
+				<% ArrayList<NoteNotificationBean> notes = (ArrayList<NoteNotificationBean>) request.getAttribute("notes"); %>
+				
+				
+				<% if(notes.size() == 0) { %>
+					<h2 class="festival-day-label">You have not yet been assigned any notes by the administrator.</h2>
+				<% } else { %>
+				<table>
+					<thead>
+						<tr>
+							<th>Area</th>
+							<th>Date/Time</th>
+							<th>Note</th>
+							<th>Seen?</th>
+						</tr>
+						
+					</thead>
+					
+					<tbody>
+						<%
+							for(NoteNotificationBean note : notes) {
+								%>					
+								<tr>
+									<td><%=note.getNote().getArea().getName() %></td>
+									<td><%=note.getNote().getCreationTime() %></td>
+									<td><%=note.getNote().getContent() %></td>
+									<td><%=note.getSeenTime() != null ? "yes" : "no" %></td>
+								</tr>
+								<%
+							}		
+						} %>
+					</tbody>
+				</table>				
+			</div>
+		</div>
+	</section>
 </body>
 </html>

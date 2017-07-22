@@ -18,37 +18,40 @@
 		<jsp:param name="hasBandNotes" value="true" />
 		<jsp:param name="currentTab" value="shifts" />
 	</jsp:include>
-	
-	<h1>Shifts</h1>
-	<p>Here, you can see all your shifts you were assigned to.</p>
-	
-	
-	<% if(employee.getShifts().size() == 0) { %>
-		<em>You have not yet been assigned any shifts.</em>
-	<% } else { %>
-	<table>
-		<thead>
-			<tr>
-				<th>Start</th>
-				<th>End</th>
-				<th>Area Name</th>
-			</tr>
-			
-		</thead>
+	<section class="section">
+		<div class="columns">
+			<div class="column is-6 is-offset-3">
 		
-		<tbody>
-			<%
-				for(ShiftBean shift : employee.getShifts()) {
-					%>					
-					<tr>
-						<td><%=shift.getStartingTime() %></td>
-						<td><%=shift.getEndingTime() %></td>
-						<td><%=shift.getArea().getName() %></td>
-					</tr>
-					<%
-				}		
-			} %>
-		</tbody>
-	</table>
+		<% if(employee.getShifts().size() == 0) { %>
+		<h2 class="festival-day-label">You have not yet been assigned any shifts.</h2>
+		<% } else { %>
+				<table>
+					<thead>
+						<tr>
+							<th>Start</th>
+							<th>End</th>
+							<th>Area Name</th>
+						</tr>
+						
+					</thead>
+					
+					<tbody>
+						<%
+							for(ShiftBean shift : employee.getShifts()) {
+								%>					
+								<tr>
+									<td><%=shift.getStartingTime() %></td>
+									<td><%=shift.getEndingTime() %></td>
+									<td><%=shift.getArea().getName() %></td>
+								</tr>
+								<%
+							}		
+						} %>
+					</tbody>
+				</table>
+				
+			</div>
+		</div>
+	</section>
 </body>
 </html>
