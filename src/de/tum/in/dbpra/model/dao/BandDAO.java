@@ -1,21 +1,15 @@
 package de.tum.in.dbpra.model.dao;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collections;
 
-import de.tum.in.dbpra.model.bean.AreaBean;
+import java.util.ArrayList;
 import de.tum.in.dbpra.model.bean.BandBean;
-import de.tum.in.dbpra.model.bean.BandEmployeeInteractionBean;
-import de.tum.in.dbpra.model.bean.EmployeeBean;
-import de.tum.in.dbpra.model.bean.NoteBean;
-import de.tum.in.dbpra.model.bean.NoteNotificationBean;
-import de.tum.in.dbpra.model.bean.ScheduleBean;
-import de.tum.in.dbpra.model.bean.StageBean;
+import de.tum.in.dbpra.model.bean.SongBean;
+
 
 public class BandDAO extends DAO {
 	
@@ -47,11 +41,10 @@ public class BandDAO extends DAO {
 			band.setUserID(rs.getInt("id"));
 			band.setName(rs.getString("name"));
 			band.setGenre(rs.getString("genre"));
-			band.setNumberOfMembers(rs.getString("number_of_members"));
+			band.setNumberOfMembers(rs.getInt("number_of_members"));
 			
 			bands.add(band);
 		}
-		
 		
 		rs.close();
 		pstmt.close();
@@ -60,4 +53,55 @@ public class BandDAO extends DAO {
 		return bands;
 	}
 
+	
+	public BandBean getBandData(int bandId) throws ClassNotFoundException, SQLException{
+		BandBean band = new BandBean();
+		
+		Connection con = null;
+		ResultSet rs;
+		PreparedStatement preparedStatement = null;
+		
+		try{
+			con = getConnection();
+			con.setAutoCommit(false);
+			
+			String sqlQuery = "SELECT b.*, p.*, f.* FROM band b, provider p, festivaluser f WHERE b.id = ? AND b.id = p.id AND p.id = f.id";
+			preparedStatement = con.prepareStatement(sqlQuery);
+			preparedStatement.setInt(1, bandId);
+			rs = preparedStatement.executeQuery();
+			
+			
+			while (rs.next()) {
+
+				band.setName(rs.getString("name"));
+				band.setEmail(rs.getString("email"));
+				band.setNumberOfMembers(rs.getInt("number_of_members"));
+				band.setPhotoUrl(rs.getString("picture"));
+				band.setUserID(rs.getInt("id"));
+				band.setGenre(rs.getString("genre"));
+				band.setPhone(rs.getString("phone"));
+				
+				SongDAO dao = new SongDAO();
+				ArrayList<SongBean> songs = dao.getAllSongsByBand(bandId);
+				band.setSongs(songs);
+			}
+		
+		
+		} catch (SQLException e) {
+	
+			System.out.println(e.getMessage());
+	
+		} finally {
+	
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+	
+			if (con != null) {
+				con.close();
+			}
+	
+		}
+		return band;
+	}  
 }

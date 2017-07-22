@@ -32,7 +32,7 @@ public class UserAccountDAO extends DAO {
 		ResultSet rs = pstmt.executeQuery();
 
 		if (rs.next()) {
-			user.setRole(Role.valueOf(rs.getString("role")));
+			user.setRole(Role.valueOf(rs.getString("role").toUpperCase()));
 			user.setUserID(rs.getInt("id"));
 			user.setPhone(rs.getString("phone"));
 			user.setPhotoUrl(rs.getString("picture"));

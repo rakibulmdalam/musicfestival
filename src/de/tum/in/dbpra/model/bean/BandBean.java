@@ -4,21 +4,21 @@ import java.util.ArrayList;
 
 public class BandBean extends ProviderBean {
 
-	private String numberOfMembers;
+	private int numberOfMembers;
 	private String genre;
 	private ArrayList<SongBean> songs;
-	private ScheduleBean schedule;
+	private ArrayList<ScheduleBean> schedules;
 
 	public BandBean() {
 		super();
 		this.songs = new ArrayList<SongBean>();
 	}
 
-	public String getNumberOfMembers() {
+	public int getNumberOfMembers() {
 		return numberOfMembers;
 	}
 
-	public void setNumberOfMembers(String numberOfMembers) {
+	public void setNumberOfMembers(int numberOfMembers) {
 		this.numberOfMembers = numberOfMembers;
 	}
 
@@ -33,16 +33,22 @@ public class BandBean extends ProviderBean {
 	public ArrayList<SongBean> getSongs() {
 		return songs;
 	}
+	
+	public void setSongs(ArrayList<SongBean> songs) {
+		this.songs = songs;
+	}
 
 	public void addSong(SongBean song) {
 		this.songs.add(song);
 	}
 
-	public ScheduleBean getSchedule() {
-		return schedule;
+	public ArrayList<ScheduleBean> getSchedules() {
+		return schedules;
 	}
 
-	public void setSchedule(ScheduleBean schedule) {
-		this.schedule = schedule;
+	public void setSchedules(ArrayList<ScheduleBean> schedules) {
+		this.schedules = schedules;
 	}
+
+	
 }
