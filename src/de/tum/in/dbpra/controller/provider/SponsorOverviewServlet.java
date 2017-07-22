@@ -1,12 +1,24 @@
 package de.tum.in.dbpra.controller.provider;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import de.tum.in.dbpra.model.bean.BandBean;
+import de.tum.in.dbpra.model.bean.ScheduleBean;
+import de.tum.in.dbpra.model.bean.SponsorBean;
+import de.tum.in.dbpra.model.bean.UserAccountBean;
+import de.tum.in.dbpra.model.dao.BandDAO;
+import de.tum.in.dbpra.model.dao.SchedulesDAO;
+import de.tum.in.dbpra.model.dao.SchedulesDAO.SearchQueryException;
+import de.tum.in.dbpra.model.dao.SponsorDAO;
 
 public class SponsorOverviewServlet extends HttpServlet {
 
@@ -21,6 +33,21 @@ public class SponsorOverviewServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		SponsorBean sponsor = new SponsorBean();
+    	
+    	SponsorDAO sponsorDAO = new SponsorDAO();
+		HttpSession session = req.getSession();
+		UserAccountBean uab = (UserAccountBean) session.getAttribute("user");
+		try {
+			sponsor = sponsorDAO.getSponsorData(uab.getUserID());
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		req.setAttribute("sponsor", sponsor);
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/SponsorOverview.jsp");
 		dispatcher.forward(req, resp);
 	}

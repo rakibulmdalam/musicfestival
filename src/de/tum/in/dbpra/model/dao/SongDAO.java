@@ -15,35 +15,7 @@ import de.tum.in.dbpra.model.bean.SongBean;
 
 public class SongDAO extends DAO {
 	
-	public static void main(String[] args){
-		SongDAO dao = new SongDAO();
-		BandBean band = new BandBean();
-		SongBean song = new SongBean();
-		
-		band.setUserID(300);
-		
-		ArrayList<SongBean> songList;
-		try {
-			songList = dao.getAllSongsByBand(band.getUserID());
-			for(SongBean singleSong: songList){
-				System.out.println(singleSong.getTitle() + "," + singleSong.getId());
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		song.setBand(band);
-		song.setTitle("Test Title");
-		
-		//SongDAO dao = new SongDAO();
-		/*try {
-			dao.addSong(song);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-	}
+	
 	public void addSong(SongBean song) throws ClassNotFoundException, SQLException{
 		
 		Connection con = null;

@@ -75,9 +75,9 @@
 						</tr>
 					</table>
 				</div>
-				<div>
+				<div class="content">
 					
-					<h1>List of Songs</h1>
+					<h2>List of Songs</h2>
 					<ul>
 						<% for( SongBean song: band.getSongs()){ %>
 						<li>
@@ -85,30 +85,26 @@
 						</li>
 						<%} %>
 					</ul>
-					
-					
-					<h1>Add Song</h1>
+				</div>
+				<div class="content">		
+					<h2>Add Song</h2>
 					<form method="post">
-						<table>
-							<tr>
-								<td>
-									Title
-								</td>
-								<td>
-									<input type="text" id="newSongTitle" name="newSongTitle">
-								</td>
-								<td>
-									&nbsp;
-								</td>
-								<td>
-									<input type="submit" id="newSongSubmit" value="add song">
-								</td>
-							</tr>
-						</table>
+						<div class="field">
+							<label class="label">Title</label>
+							<div class="control">
+						    	<input type="text" class="input" placeholder="enter song title" id="newSongTitle" name="newSongTitle">
+							</div>
+						</div>
+						
+						<div class="field is-grouped">
+						 	<div class="control">
+								<input type="submit" value="add song" class="button is-primary">
+						  	</div>
+						</div>	
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
-</html></html>
+</html>
