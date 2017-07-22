@@ -8,7 +8,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import de.tum.in.dbpra.model.bean.Role;
+import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bo.SearchSchedules;
 import de.tum.in.dbpra.model.bo.SearchType;
 import de.tum.in.dbpra.model.dao.SchedulesDAO.SearchQueryException;
@@ -26,6 +29,21 @@ public class TimetableSearchServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
+		UserAccountBean user;
+
+		if (session == null || session.getAttribute("user") == null) {
+			resp.sendRedirect("/login");
+			return;
+		} else {
+			user = (UserAccountBean) session.getAttribute("user");
+			if (user.getRole() != Role.VISITOR) {
+				session.invalidate();
+				resp.sendRedirect("/login");
+				return;
+			}
+		}
+		
 		SearchSchedules search;
 		SearchType type;
 		String reqSearchType = req.getParameter("type");
