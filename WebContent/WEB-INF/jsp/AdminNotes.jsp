@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 	
 <%@ page import="de.tum.in.dbpra.model.bean.EmployeeBean"%>
+<%@ page import="de.tum.in.dbpra.model.bean.AreaBean"%>
 <%@ page import="java.util.LinkedHashMap"%>
+<%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.HashSet"%>
 <!DOCTYPE html>
 <html>
@@ -24,6 +26,7 @@
 					
 				<% 
 				LinkedHashMap<Integer, EmployeeBean> employees = (LinkedHashMap<Integer, EmployeeBean>) request.getAttribute("employees");
+				ArrayList<AreaBean> areas = (ArrayList<AreaBean>) request.getAttribute("areas");
 				
 				if(employees.size() == 0) { %>
 				<h2 class="festival-day-label">There exists no employee you could issue a note to.</h2>
@@ -31,7 +34,15 @@
 					<form action="/admin/notes" method="post">
 						<label for="note_content">Note:</label><br>
 						<textarea name="note" id="note_content"><%=(request.getAttribute("prefill_note") != null ? request.getAttribute("prefill_note") : "") %></textarea>
-						
+						<br><br>
+						<label for="area_id" method="post">Area:</label>
+						<select name="area_id" id="area_id">
+							<%
+								for(AreaBean a : areas) {
+								%>					
+								<option value="<%=a.getId() %>"><%=a.getName() %></option>
+							<% } %>
+						</select>
 						<p style="margin:25px 0 15px 0">Please tick at least one employee you want to notify of this note.</p>
 						
 						<table>
@@ -60,10 +71,9 @@
 						<input type="submit" value="Create" name="submit" style="margin-top:15px" />
 					</form>
 			<% } %>
-			
-						
-					</div>
+									
 				</div>
+			</div>
 	</section>
 </body>
 </html>

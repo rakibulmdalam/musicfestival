@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 
 import de.tum.in.dbpra.model.bean.EmployeeBean;
@@ -44,6 +46,50 @@ public class EmployeeDAO extends DAO {
 		con.close();
 		
 		return result;
+	}
+
+	public void insertNote(String noteContent, int areaID, HashSet<Integer> insertIds) throws SQLException, ClassNotFoundException {
+		Connection con = getConnection();
+		con.setAutoCommit(false);
+		con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+		
+		try {
+		
+			ResultSet rs = null;
+			PreparedStatement pstmt = null;
+			
+			
+			pstmt = con.prepareStatement("INSERT INTO note VALUES (NEXTVAL('note_seq'), ?, NOW(), ?)", new String[] {"id"});
+			pstmt.setString(1, noteContent);
+			pstmt.setInt(2, areaID);
+			pstmt.execute();
+			
+			ResultSet keys = pstmt.getGeneratedKeys();
+			keys.next();
+			int noteID = keys.getInt(1);
+			
+			for(int employeeID : insertIds) {
+				pstmt = con.prepareStatement("INSERT INTO note_notification VALUES (?, ?, NULL)");
+				pstmt.setInt(1, employeeID);
+				pstmt.setInt(2, noteID);
+				pstmt.execute();
+			}
+			
+
+			con.commit();
+			
+			pstmt.close();
+			
+			if(rs != null)
+				rs.close();
+			
+		} catch(SQLException e) {
+			con.rollback();
+			e.printStackTrace();
+		}
+				
+		con.close();
+		
 	}
 
 }
