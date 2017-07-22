@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
-import de.tum.in.dbpra.model.dao.VisitorOverviewDAO;
+import de.tum.in.dbpra.model.dao.VisitorDAO;
 
 public class VisitorOverviewServlet extends HttpServlet {
 
@@ -25,13 +25,13 @@ public class VisitorOverviewServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				int userID =  Integer.parseInt(request.getParameter("userID"));
+				//int userID =  Integer.parseInt(request.getParameter("userID"));
 				//request.setParameter("userID", userID);
-				VisitorOverviewDAO dao = new VisitorOverviewDAO();
+				VisitorDAO dao = new VisitorDAO();
 				//UserAccountBean user = new UserAccountBean();
 				VisitorBean visitor = new VisitorBean();
 				//UserAccountBean user = (UserAccountBean) request.getAttribute("user");
-				visitor.setUserID(userID);
+				visitor.setUserID((int) request.getSession(false).getAttribute("userID"));
 				try{
 					dao.getVisitorAccountOverview(visitor);
 					request.setAttribute("visitor", visitor);
@@ -52,7 +52,7 @@ public class VisitorOverviewServlet extends HttpServlet {
 			throws ServletException, IOException {
 		//int userID =  Integer.parseInt(request.getParameter("userID"));
 		//request.setParameter("userID", userID);
-		VisitorOverviewDAO dao = new VisitorOverviewDAO();
+		VisitorDAO dao = new VisitorDAO();
 		//UserAccountBean user = new UserAccountBean();
 		VisitorBean visitor = new VisitorBean();
 		UserAccountBean user = (UserAccountBean) request.getAttribute("user");

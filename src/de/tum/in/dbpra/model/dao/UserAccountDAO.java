@@ -12,8 +12,13 @@ public class UserAccountDAO extends DAO {
 	public void checkUserAccount(UserAccountBean user)
 			throws UserNotFoundException, SQLException, ClassNotFoundException {
 
-		String query = "SELECT f.*, v.first_name FROM festivaluser f, visitor v "
-				+ "where v.id = f.id and email = ? and password = ?;";
+		String query = "SELECT f.* FROM festivaluser f where email = ? and password = ?;";
+		
+		String visitor = "SELECT first_name from visitor where id = ?;";
+		
+		String provider = "SELECT name from provider where id = ?;";
+		
+		String employee = "SELECT first_name from employee where id = ?;";
 
 		Connection con = getConnection();
 
@@ -29,7 +34,51 @@ public class UserAccountDAO extends DAO {
 			user.setUserID(rs.getInt("id"));
 			user.setPhone(rs.getString("phone"));
 			user.setPhotoUrl(rs.getString("picture"));
-			user.setUserName(rs.getString("first_name"));
+			if (user.getRole()== Role.VISITOR){
+				
+				PreparedStatement psv = con.prepareStatement(visitor);
+
+				psv.setLong(1, user.getUserID());
+					
+				ResultSet rsv = psv.executeQuery();
+				
+				if(rsv.next()){
+					
+					user.setUserName(rsv.getString("first_name"));
+				}
+				rsv.close();
+				psv.close();
+			}
+			else if (user.getRole()== Role.BAND || user.getRole()== Role.SPONSOR){
+				
+				PreparedStatement psb = con.prepareStatement(provider);
+
+				psb.setLong(1, user.getUserID());
+					
+				ResultSet rsb = psb.executeQuery();
+				
+				if(rsb.next()){
+					
+					user.setUserName(rsb.getString("name"));
+				}
+				rsb.close();
+				psb.close();
+			}
+			else if (user.getRole()== Role.EMPLOYEE){
+				
+				PreparedStatement pse = con.prepareStatement(employee);
+
+				pse.setLong(1, user.getUserID());
+					
+				ResultSet rse = pse.executeQuery();
+				
+				if(rse.next()){
+					
+					user.setUserName(rse.getString("first_name"));
+				}
+				rse.close();
+				pse.close();
+			}
 		} else {
 			throw new UserNotFoundException("Username or password given is wrong!");
 		}
