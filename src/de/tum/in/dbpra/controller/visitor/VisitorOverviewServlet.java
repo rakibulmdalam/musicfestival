@@ -30,8 +30,8 @@ public class VisitorOverviewServlet extends HttpServlet {
 				VisitorDAO dao = new VisitorDAO();
 				//UserAccountBean user = new UserAccountBean();
 				VisitorBean visitor = new VisitorBean();
-				//UserAccountBean user = (UserAccountBean) request.getAttribute("user");
-				visitor.setUserID((int) request.getSession(false).getAttribute("userID"));
+				UserAccountBean user = (UserAccountBean) request.getSession(false).getAttribute("user");
+				visitor.setUserID(user.getUserID());
 				try{
 					dao.getVisitorAccountOverview(visitor);
 					request.setAttribute("visitor", visitor);
@@ -47,31 +47,6 @@ public class VisitorOverviewServlet extends HttpServlet {
 
 			}
 
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		//int userID =  Integer.parseInt(request.getParameter("userID"));
-		//request.setParameter("userID", userID);
-		VisitorDAO dao = new VisitorDAO();
-		//UserAccountBean user = new UserAccountBean();
-		VisitorBean visitor = new VisitorBean();
-		UserAccountBean user = (UserAccountBean) request.getAttribute("user");
-		visitor.setUserID(user.getUserID());
-		visitor.setFirstName(user.getUserName());
-//		try{
-//			dao.getVisitorAccountOverview(visitor);
-//			request.setAttribute("visitor", visitor);
-//		}
-//		catch (Throwable e) {
-//			e.printStackTrace();
-//			request.setAttribute("error", e.getMessage());
-//		}
-		
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp");
-		dispatcher.forward(request, response);
-
-	}
 
 
 }
