@@ -19,7 +19,7 @@ public class AdminNotesServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	@Override
+	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/AdminNotes.jsp");
 		dispatcher.forward(req, resp);

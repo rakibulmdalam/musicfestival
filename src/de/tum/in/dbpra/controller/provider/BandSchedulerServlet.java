@@ -1,7 +1,11 @@
 package de.tum.in.dbpra.controller.provider;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +14,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import de.tum.in.dbpra.model.bean.BandBean;
+import de.tum.in.dbpra.model.bean.ProviderBean;
+import de.tum.in.dbpra.model.bean.ScheduleBean;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
+import de.tum.in.dbpra.model.bean.VisitorBean;
 import de.tum.in.dbpra.model.dao.SchedulesDAO;
+import de.tum.in.dbpra.model.dao.SchedulesDAO.SearchQueryException;
+import de.tum.in.dbpra.model.dao.TimetableDAO.EmptyTimetableException;
 
 
 
@@ -34,22 +44,39 @@ public class BandSchedulerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			try {
+			
 			
         	SchedulesDAO schedulesDAO = new SchedulesDAO();
-        	//String band = UserAccountBean.class.getName();
-        	String band = "hi";
-        	List listOk = schedulesDAO.getSchedulesByBand(band);       	
-        	request.setAttribute("orderOk", listOk);
         	
+        	BandBean band = new BandBean();
+        	
+        	String bandName;
+    		try {
+    			bandName= request.getParameter("name");
+    		} catch (NumberFormatException e) {
+    			bandName = "1";
+    		}
+    		band.setUserName(bandName);
+    		
+    		ArrayList<ScheduleBean> bandSchedule;
+			try {
+				bandSchedule = schedulesDAO.getSchedulesByBand(bandName);
+				request.setAttribute("schedules", bandSchedule);
+    		request.setAttribute("band", band);
+    		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Timetable.jsp");
+    		dispatcher.forward(request, response);
+				
+			} catch (ClassNotFoundException | SQLException | SearchQueryException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			
+			}
+    		
+    		
+    		
+    	
 	
-        	
-    	} catch (Throwable e) {
-    		e.printStackTrace();
-    		request.setAttribute("error", e.toString() + e.getMessage());
-    	}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/BandScheduler.jsp");
-		dispatcher.forward(request, response);
+       
 	}
 
 	/**

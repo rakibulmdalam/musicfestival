@@ -20,14 +20,14 @@
 						<form method="post">
 							<div class="field">
 								<p class="control has-icons-left">
-									<input class="input" type="email" placeholder="Email"> <span
+									<input class="input" type="email" name = "email" placeholder="Email" > <span
 										class="icon is-small is-left"> <i class="fa fa-envelope"></i>
 									</span>
 								</p>
 							</div>
 							<div class="field">
 								<p class="control has-icons-left">
-									<input class="input" type="password" placeholder="Password">
+									<input class="input" type="password" name = "password" placeholder="Password" >
 									<span class="icon is-small is-left"> <i class="fa fa-lock"></i>
 									</span>
 								</p>
@@ -43,17 +43,18 @@
 			</div>
 		</div>
 	</section>
-			<%-- <form method="post">
-				<label>Username:</label> <input type="text" name="username"
-					placeholder="Username"> <label>Password:</label> <input
-					type="password" name="password" placeholder="Password"> <input
-					type="submit" id="login" value="Login" />
-			</form>
+<!-- 			 <form method="post"> -->
+<!-- 				<label>Username:</label> <input type="text" name="username" -->
+<!-- 					placeholder="Username"> <label>Password:</label> <input -->
+<!-- 					type="password" name="password" placeholder="Password"> <input -->
+<!-- 					type="submit" id="login" value="Login" /> -->
+<!-- 			</form> -->
 
-			<% if (request.getParameter("username") != null){ %>
-				<%= user.getRole() %> 
-			<%	} %>
-
+<%-- 			<% if (request.getParameter("Email") != null){ %> --%>
+<%-- 				<%= user.getRole() %>  --%>
+<%-- 			<%	} %> --%>
+			<%@ page import = "de.tum.in.dbpra.model.bean.Role" %>
+			
 			<%
 				if (request.getAttribute("error") != null) {
 			%>
@@ -61,14 +62,24 @@
 			<%=request.getAttribute("error")%>
 
 			<%
-				} else {
-					if (request.getParameter("username") != null && request.getParameter("username") != null) {
-			%>
-			<p>Login Success!</p>
-			<%
-				}
-				}
-			%> --%>
-		
+				} else if (user.getRole() != null) { %>
+				<input type = "hidden" name = "userID" value = "${user.getUserID()}" >
+				<% } %>
+<%-- 				<%	Role employee = Role.EMPLOYEE; --%>
+<!-- // 	  				Role band = Role.BAND;  -->
+<!-- // 	 				Role sponsor = Role.SPONSOR;  -->
+<!-- // 	 				Role visitor = Role.VISITOR; -->
+<!-- //  					if ( user.getRole() ==  employee ){ -->
+<!-- //  						response.sendRedirect("./employee") ;  }   -->
+<!-- //  					if ( user.getRole() ==  band ){  -->
+<!-- //  						response.sendRedirect("./band") ;  }   -->
+<!-- //  					if ( user.getRole() ==  sponsor ){  -->
+<!-- //  						response.sendRedirect("./sponsor") ;  }   -->
+<!-- //  					if ( user.getRole() ==  visitor ){  -->
+<!-- //  						response.sendRedirect("./visitor") ;  }   -->
+<!-- //  				} -->
+
+<%-- 			 %> --%>
+			 
 </body>
 </html>
