@@ -93,7 +93,7 @@ html {
 }
 
 .box {
-	padding: 0.7rem;
+	padding: 1rem;
 	animation: fade-move-in-from-bottom 1s;
 }
 
@@ -170,7 +170,7 @@ html {
     padding-top: 0.5rem;
 }
 .section+.section {
-	padding-top: 0;
+	padding-top: 0.6rem;
 }
 .section {
 	padding: 2rem 1.5rem 1.5rem;

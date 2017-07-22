@@ -13,13 +13,14 @@
 </jsp:include>
 <body>
 	<jsp:include page="adminHeader.jsp">
-		<jsp:param name="firstName" value="Boss" />
+		<jsp:param name="firstName" value="${user.getUserName()}" />
 		<jsp:param name="currentTab" value="notes" />
 	</jsp:include>
 	
 	<section class="section">
 		<div class="columns">
 			<div class="column is-6 is-offset-3">
+				<div class="box">
 				<% if(request.getAttribute("form_error") != null) { %>
 				<div class="error">Error: Note cannot be empty and at least one recipient needs to be selected.</div>
 				<% } %>
@@ -32,20 +33,26 @@
 				<h2 class="festival-day-label">There exists no employee you could issue a note to.</h2>
 				<% } else { %>				
 					<form action="/admin/notes" method="post">
-						<label for="note_content">Note:</label><br>
-						<textarea name="note" id="note_content"><%=(request.getAttribute("prefill_note") != null ? request.getAttribute("prefill_note") : "") %></textarea>
-						<br><br>
-						<label for="area_id" method="post">Area:</label>
-						<select name="area_id" id="area_id">
-							<%
-								for(AreaBean a : areas) {
-								%>					
-								<option value="<%=a.getId() %>"><%=a.getName() %></option>
-							<% } %>
-						</select>
+						<div class="field">
+							<label for="note_content" class="label" >Note:</label>
+							<textarea class="textarea" name="note" id="note_content"><%=(request.getAttribute("prefill_note") != null ? request.getAttribute("prefill_note") : "") %></textarea>
+						</div>
+						
+						<div class="field">
+							<label class="label" for="area_id">Area:</label>
+							<div class="select is-normal">
+								<select name="area_id" id="area_id">
+									<%
+										for(AreaBean a : areas) {
+										%>					
+										<option value="<%=a.getId() %>"><%=a.getName() %></option>
+									<% } %>
+								</select>
+							</div>
+						</div>
 						<p style="margin:25px 0 15px 0">Please tick at least one employee you want to notify of this note.</p>
 						
-						<table>
+						<table class="table">
 							<thead>
 								<tr>
 									<th>Select</th>
@@ -68,10 +75,10 @@
 							</tbody>
 						</table>
 						
-						<input type="submit" value="Create" name="submit" style="margin-top:15px" />
+						<input type="submit" class="button is-primary is-fullwidth" value="Create" name="submit" />
 					</form>
 			<% } %>
-									
+				</div>			
 				</div>
 			</div>
 	</section>
