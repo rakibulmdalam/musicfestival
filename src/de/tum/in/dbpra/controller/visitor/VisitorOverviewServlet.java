@@ -7,10 +7,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import de.tum.in.dbpra.model.bean.Role;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
-import de.tum.in.dbpra.model.dao.VisitorOverviewDAO;
+import de.tum.in.dbpra.model.dao.VisitorDAO;
 
 public class VisitorOverviewServlet extends HttpServlet {
 
@@ -24,54 +26,38 @@ public class VisitorOverviewServlet extends HttpServlet {
 	}
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				int userID =  Integer.parseInt(request.getParameter("userID"));
-				//request.setParameter("userID", userID);
-				VisitorOverviewDAO dao = new VisitorOverviewDAO();
-				//UserAccountBean user = new UserAccountBean();
-				VisitorBean visitor = new VisitorBean();
-				//UserAccountBean user = (UserAccountBean) request.getAttribute("user");
-				visitor.setUserID(userID);
-				try{
-					dao.getVisitorAccountOverview(visitor);
-					request.setAttribute("visitor", visitor);
-				}
-				catch (Throwable e) {
-					e.printStackTrace();
-					request.setAttribute("error", e.getMessage());
-				}
-				
-
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp");
-				dispatcher.forward(request, response);
-
-			}
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		//int userID =  Integer.parseInt(request.getParameter("userID"));
-		//request.setParameter("userID", userID);
-		VisitorOverviewDAO dao = new VisitorOverviewDAO();
-		//UserAccountBean user = new UserAccountBean();
-		VisitorBean visitor = new VisitorBean();
-		UserAccountBean user = (UserAccountBean) request.getAttribute("user");
-		visitor.setUserID(user.getUserID());
-		visitor.setFirstName(user.getUserName());
-//		try{
-//			dao.getVisitorAccountOverview(visitor);
-//			request.setAttribute("visitor", visitor);
-//		}
-//		catch (Throwable e) {
-//			e.printStackTrace();
-//			request.setAttribute("error", e.getMessage());
-//		}
 		
+		HttpSession session = req.getSession(false);
+		UserAccountBean user;
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp");
-		dispatcher.forward(request, response);
+		if (session == null || session.getAttribute("user") == null) {
+			resp.sendRedirect("/login");
+			return;
+		} else {
+			user = (UserAccountBean) session.getAttribute("user");
+			if (user.getRole() != Role.VISITOR) {
+				session.invalidate();
+				resp.sendRedirect("/login");
+				return;
+			}
+		}
+
+		VisitorDAO dao = new VisitorDAO();
+		VisitorBean visitor = new VisitorBean();
+		visitor.setUserID(user.getUserID());
+		try {
+			dao.getVisitorAccountOverview(visitor);
+			req.setAttribute("visitor", visitor);
+		} catch (Throwable e) {
+			e.printStackTrace();
+			req.setAttribute("error", e.getMessage());
+		}
+
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/VisitorOverview.jsp");
+		dispatcher.forward(req, resp);
 
 	}
-
 
 }

@@ -10,8 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import de.tum.in.dbpra.model.bean.Role;
 import de.tum.in.dbpra.model.bean.ScheduleBean;
+import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
 import de.tum.in.dbpra.model.dao.TimetableDAO;
 import de.tum.in.dbpra.model.dao.TimetableDAO.EmptyTimetableException;
@@ -29,16 +32,25 @@ public class TimetableServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
+		UserAccountBean user;
+
+		if (session == null || session.getAttribute("user") == null) {
+			resp.sendRedirect("/login");
+			return;
+		} else {
+			user = (UserAccountBean) session.getAttribute("user");
+			if (user.getRole() != Role.VISITOR) {
+				session.invalidate();
+				resp.sendRedirect("/login");
+				return;
+			}
+		}
+		
 		TimetableDAO dao = new TimetableDAO();
 		VisitorBean visitor = new VisitorBean();
 		
-		int id;
-		try {
-			id = Integer.parseInt(req.getParameter("id"));
-		} catch (NumberFormatException e) {
-			id = 1;
-		}
-		visitor.setUserID(id);
+		visitor.setUserID(user.getUserID());
 		try {
 			dao.getTimetable(visitor);
 		} catch (ClassNotFoundException | SQLException e) {

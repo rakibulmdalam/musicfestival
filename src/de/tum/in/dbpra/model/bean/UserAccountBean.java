@@ -7,6 +7,7 @@ public class UserAccountBean {
 	private String phone;
 	private String photoUrl;
 	private Role role;
+	private String employeeRole;
 	
 	private String userName;
 
@@ -64,6 +65,14 @@ public class UserAccountBean {
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public String getEmployeeRole() {
+		return employeeRole;
+	}
+
+	public void setEmployeeRole(String employeeRole) {
+		this.employeeRole = employeeRole;
 	}
 
 }

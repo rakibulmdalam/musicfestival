@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import de.tum.in.dbpra.model.bean.Role;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
@@ -50,16 +51,26 @@ public class LoginServlet extends HttpServlet {
 			dao.checkUserAccount(user);
 			request.setAttribute("user", user);
 			int userID = user.getUserID();
-			request.setAttribute("userID", userID);
+			Role userRole = user.getRole();
+			
+			HttpSession session = request.getSession(true);
+			session.setAttribute("userID", userID);
+			session.setAttribute("userRole", userRole);
+			session.setAttribute("user", user);
 			
 			Role employee = Role.EMPLOYEE;
 			Role band = Role.BAND; 
 			Role sponsor = Role.SPONSOR; 
 			Role visitor = Role.VISITOR;
 			if ( user.getRole() ==  employee ){
-				//RequestDispatcher dispatcher = request.getRequestDispatcher("./employee"); 
-				//dispatcher.forward(request, response);
-				response.sendRedirect("./employee") ; 
+				
+				if (user.getEmployeeRole().equals("ADMIN")){
+					response.sendRedirect("./admin") ;
+				}
+				else {
+					response.sendRedirect("./employee") ;
+				}
+				 
 				return;}  
 			else if ( user.getRole() ==  band ){ 
 				//RequestDispatcher dispatcher = request.getRequestDispatcher("./band"); 
@@ -72,9 +83,9 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect("./sponsor") ; 
 				return;}  
 			else if ( user.getRole() ==  visitor ){ 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("./visitor"); 
-				dispatcher.forward(request, response);
-				//response.sendRedirect("./visitor") ; 
+				//RequestDispatcher dispatcher = request.getRequestDispatcher("./visitor"); 
+				//dispatcher.forward(request, response);
+				response.sendRedirect("./visitor") ; 
 				return;}  
 			else {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/Login.jsp"); 

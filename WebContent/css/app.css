@@ -129,6 +129,9 @@ html {
 .content h2:not(:first-child) {
 	margin-top: 2em;
 }
+.content h4 {
+	line-height: 1.5;
+}
 
 .box:not(:last-child) {
     margin-bottom: 0.6rem;
