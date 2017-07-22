@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import de.tum.in.dbpra.model.bean.Role;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
 import de.tum.in.dbpra.model.dao.VisitorDAO;
@@ -29,19 +28,7 @@ public class VisitorOverviewServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
-		UserAccountBean user;
-
-		if (session == null || session.getAttribute("user") == null) {
-			resp.sendRedirect("/login");
-			return;
-		} else {
-			user = (UserAccountBean) session.getAttribute("user");
-			if (user.getRole() != Role.VISITOR) {
-				session.invalidate();
-				resp.sendRedirect("/login");
-				return;
-			}
-		}
+		UserAccountBean user = (UserAccountBean) session.getAttribute("user");
 
 		VisitorDAO dao = new VisitorDAO();
 		VisitorBean visitor = new VisitorBean();

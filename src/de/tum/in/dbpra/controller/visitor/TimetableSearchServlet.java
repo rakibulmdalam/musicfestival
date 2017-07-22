@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import de.tum.in.dbpra.model.bean.Role;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
 import de.tum.in.dbpra.model.bo.SearchSchedules;
@@ -34,20 +33,8 @@ public class TimetableSearchServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
-		UserAccountBean user;
+		UserAccountBean user = (UserAccountBean) session.getAttribute("user");
 
-		if (session == null || session.getAttribute("user") == null) {
-			resp.sendRedirect("/login");
-			return;
-		} else {
-			user = (UserAccountBean) session.getAttribute("user");
-			if (user.getRole() != Role.VISITOR) {
-				session.invalidate();
-				resp.sendRedirect("/login");
-				return;
-			}
-		}
-		
 		SearchSchedules search;
 		SearchType type;
 		String reqSearchType = req.getParameter("type");
@@ -66,7 +53,7 @@ public class TimetableSearchServlet extends HttpServlet {
 			req.setAttribute("schedules", null);
 			req.setAttribute("dates", null);
 		}
-		
+
 		VisitorBean visitor = new VisitorBean();
 		visitor.setUserID(user.getUserID());
 
@@ -78,9 +65,10 @@ public class TimetableSearchServlet extends HttpServlet {
 		} catch (EmptyTimetableException e) {
 			e.printStackTrace();
 		}
-		
-		req.setAttribute("visitorScheduleIds", visitor.getTimetable().stream().map(s -> s.getId()).collect(Collectors.toList()));
-		
+
+		req.setAttribute("visitorScheduleIds",
+				visitor.getTimetable().stream().map(s -> s.getId()).collect(Collectors.toList()));
+
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/TimetableSearch.jsp");
 		dispatcher.forward(req, resp);
 	}
@@ -90,7 +78,7 @@ public class TimetableSearchServlet extends HttpServlet {
 		HttpSession session = req.getSession(false);
 		UserAccountBean user = (UserAccountBean) session.getAttribute("user");
 		TimetableDAO dao = new TimetableDAO();
-		
+
 		if (req.getParameter("addId") != null) {
 			Integer addId = Integer.parseInt(req.getParameter("addId"));
 			try {
@@ -108,7 +96,7 @@ public class TimetableSearchServlet extends HttpServlet {
 			}
 			resp.sendRedirect("/visitor/timetable/search?deleted=true");
 		}
-		
+
 	}
 
 }
