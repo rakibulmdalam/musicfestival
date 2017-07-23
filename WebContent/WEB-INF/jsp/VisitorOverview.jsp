@@ -17,30 +17,15 @@
 		<jsp:param name="currentTab" value="profile" />
 	</jsp:include>
 
-	<div class="section">
-		<div class="columns">
-			<div class="column is-offset-one-quarter is-half">
-				<div class="content has-text-centered">
-					<h4>
-						First Name:
-						<b><%=visitor.getFirstName()%></b>
-						<br>
-					
-						Last Name:
-						<b><%=visitor.getLastName()%></b>
-						<br>
-					
-						Date of birth:
-						<b><%=visitor.getDateOfBirth()%></b>
-						<br>
-					
-						Balance: €
-						<b><%=visitor.getBalance()%></b>
-					</h4>
-				</div>
-			</div>
+	<section class="section">
+		<div class="container has-text-centered">
+			<h1 class="title is-2"><%=visitor.getFirstName()%>
+				<%=visitor.getLastName()%></h1>
+			<h2 class="subtitle">
+				Date of birth:
+				<%=visitor.getDateOfBirth()%><br> Balance: €<%=visitor.getBalance()%>
+			</h2>
 		</div>
-	</div>
-
+	</section>
 </body>
 </html>

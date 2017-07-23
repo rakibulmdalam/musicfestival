@@ -78,7 +78,6 @@ public class SchedulesDAO extends DAO {
 
 			BandBean band = new BandBean();
 			band.setName(rs.getString("name"));
-			band.setNumberOfMembers(rs.getInt("number_of_members"));
 			band.setGenre(rs.getString("genre"));
 			band.setPhotoUrl(rs.getString("picture"));
 

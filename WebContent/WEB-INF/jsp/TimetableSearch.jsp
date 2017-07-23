@@ -20,7 +20,7 @@
 		<jsp:param name="photoUrl" value="${user.getPhotoUrl()}" />
 		<jsp:param name="currentTab" value="timetable" />
 	</jsp:include>
-	<div class="tabs is-centered is-marginless">
+	<div class="tabs sub-tabs is-centered is-marginless">
 		<ul>
 			<li><a href="/visitor/timetable">Your picks</a></li>
 			<li class="is-active"><a href="/visitor/timetable/search">Search</a></li>

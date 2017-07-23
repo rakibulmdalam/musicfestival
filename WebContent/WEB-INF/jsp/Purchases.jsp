@@ -17,9 +17,11 @@
 			<div class="column is-6 is-offset-3">
 	
 				<% if (request.getAttribute("error") != null) { %>
-						<h2 class="festival-day-label"><%= request.getAttribute("error") %></h2>
+					<div class="container has-text-centered">
+						<h1 class="title is-4"><%= request.getAttribute("error") %></h1>
+					</div>
 					
-						<% } else { %>
+				<% } else { %>
 					
 				<table class="table">
 				  <thead>
