@@ -29,12 +29,18 @@ public class AdminFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = request.getSession(false);
 
-		UserAccountBean user = (UserAccountBean) session.getAttribute("user");
+		UserAccountBean user = null;
+		
+		if(session != null) {
+			user = (UserAccountBean) session.getAttribute("user");
+		}
 
 		if (session != null && user != null && user.getRole() == Role.EMPLOYEE && user.getEmployeeRole().equals("ADMIN")) {
 			chain.doFilter(req, resp);
 		} else {
-			session.invalidate();
+			if(session != null)
+				session.invalidate();
+			
 			((HttpServletResponse) resp).sendRedirect("/login");
 		}
 	}

@@ -4,7 +4,11 @@
 <%@ page import="java.util.Map"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
+
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
 <%@ page import="java.util.Set"%>
+<%@ page import="java.util.Calendar"%>
 <%@ page import="de.tum.in.dbpra.model.bean.ScheduleBean"%>
 <%@ page import="de.tum.in.dbpra.model.bean.StageBean"%>
 <%@ page import="de.tum.in.dbpra.model.bean.BandBean"%>
@@ -26,11 +30,12 @@
 			<div class="box">
 			
 				<% if(request.getAttribute("form_error") != null) { %>
-				<div class="error">Error: Note cannot be empty and at least one recipient needs to be selected.</div>
+				<div class="error">Error: Please double-check the date format and make sure that the four dates are in ascending order.</div>
 				<% } %>
 					
 				<% 
 				ArrayList<BandBean> bands = (ArrayList<BandBean>) request.getAttribute("bands");
+				ArrayList<StageBean> stages = (ArrayList<StageBean>) request.getAttribute("stages");
 				
 				if(bands.size() == 0) { %>
 				<h2 class="festival-day-label">There exists no band you could enter a schedule for.</h2>
@@ -43,11 +48,24 @@
 									<%
 										for(BandBean b : bands) {
 										%>					
-										<option value="<%=b.getUserID() %>"><%=b.getName() %></option>
+										<option<%=request.getAttribute("prefill_band") != null && ((int) request.getAttribute("prefill_band")) == b.getUserID() ? " selected" : "" %> value="<%=b.getUserID() %>"><%=b.getName() %></option>
 									<% } %>
 								</select>
 							</div>
 						</div>
+						<div class="field">
+  							<label for="stage_name" class="label">Stage:</label>
+							<div class="select is-normal">
+								<select name="stage_name" id="stage_name">
+									<%
+										for(StageBean s : stages) {
+										%>					
+										<option<%=request.getAttribute("prefill_stage") != null && ((String) request.getAttribute("prefill_stage")).equals(s.getName()) ? " selected" : "" %> value="<%=s.getName() %>"><%=s.getName() %></option>
+									<% } %>
+								</select>
+							</div>
+						</div>
+						
 						<p style="margin:25px 0 15px 0">Please enter the schedule for the selected band.</p>
 						
 						<table class="table">
@@ -61,64 +79,139 @@
 														
 							<tbody>												
 								<tr>
+									<%
+											SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+											String prefill_date = "";
+											int prefill_time = 0;
+								
+											if(request.getAttribute("prefill_dates") != null) {
+												HashMap<String, Date> map = (HashMap<String, Date>) request.getAttribute("prefill_dates");
+												
+												if(map.get("build_up") != null) {
+													Calendar cal = Calendar.getInstance();
+													
+													Date d = map.get("build_up");
+													cal.setTime(d);
+													prefill_date = dateFormat.format(d);
+													prefill_time = cal.get(Calendar.HOUR) * 60 + cal.get(Calendar.MINUTE);
+												}
+											}
+										%>
 									<td>Build Up</td>
 									<td>
-										<input class="input is-small" type="text" name="day_build_up" placeholder="YYYY-MM-DD" />
+										<input class="input is-small" type="text" name="day_build_up" value="<%=prefill_date %>" placeholder="YYYY-MM-DD" />
 									</td>
 									<td>
+										
 										<div class="select is-small">
 											<select name="time_build_up">
 												<% for(int i = 0; i <= 23; i++) { %>
-												<option value="<%=i*60 %>"><%=i + ":00" %></option>
-												<option value="<%=i*60+30 %>"><%=i + ":30" %></option>
+												<option<%=prefill_time == i*60 ? " selected" : "" %> value="<%=i*60 %>"><%=i + ":00" %></option>
+												<option<%=prefill_time == i*60+30 ? " selected" : "" %> value="<%=i*60+30 %>"><%=i + ":30" %></option>
 												<% } %>
 											</select>
 										</div>
 									</td>
 								</tr>
 								<tr>
+									<%
+
+											prefill_date = "";
+											prefill_time = 0;
+								
+											if(request.getAttribute("prefill_dates") != null) {
+												HashMap<String, Date> map = (HashMap<String, Date>) request.getAttribute("prefill_dates");
+												
+												if(map.get("start_playing") != null) {
+													Calendar cal = Calendar.getInstance();
+													
+													Date d = map.get("start_playing");
+													cal.setTime(d);
+													prefill_date = dateFormat.format(d);
+													prefill_time = cal.get(Calendar.HOUR) * 60 + cal.get(Calendar.MINUTE);
+												}
+											}
+										%>
 									<td>Start Playing</td>
 									<td>
-										<input class="input is-small" type="text" name="day_start_playing" placeholder="YYYY-MM-DD" />
+										<input class="input is-small" type="text" name="day_start_playing" value="<%=prefill_date %>" placeholder="YYYY-MM-DD" />
 									</td>
 									<td>
+									
+										
 										<div class="select is-small">
 											<select name="time_start_playing">
 												<% for(int i = 0; i <= 23; i++) { %>
-												<option value="<%=i*60 %>"><%=i + ":00" %></option>
-												<option value="<%=i*60+30 %>"><%=i + ":30" %></option>
+												<option<%=prefill_time == i*60 ? " selected" : "" %> value="<%=i*60 %>"><%=i + ":00" %></option>
+												<option<%=prefill_time == i*60+30 ? " selected" : "" %> value="<%=i*60+30 %>"><%=i + ":30" %></option>
 												<% } %>
 											</select>
 										</div>
 									</td>
 								</tr>
 								<tr>
+									<%
+
+											prefill_date = "";
+											prefill_time = 0;
+								
+											if(request.getAttribute("prefill_dates") != null) {
+												HashMap<String, Date> map = (HashMap<String, Date>) request.getAttribute("prefill_dates");
+												
+												if(map.get("finish_playing") != null) {
+													Calendar cal = Calendar.getInstance();
+													
+													Date d = map.get("finish_playing");
+													cal.setTime(d);
+													prefill_date = dateFormat.format(d);
+													prefill_time = cal.get(Calendar.HOUR) * 60 + cal.get(Calendar.MINUTE);
+												}
+											}
+										%>
 									<td>End Playing</td>
 									<td>
-										<input class="input is-small" type="text" name="day_end_playing" placeholder="YYYY-MM-DD" />
+										<input class="input is-small" type="text" name="day_finish_playing" value="<%=prefill_date %>" placeholder="YYYY-MM-DD" />
 									</td>
 									<td>
 										<div class="select is-small">
-											<select name="time_end_playing">
+											<select name="time_finish_playing">
 												<% for(int i = 0; i <= 23; i++) { %>
-												<option value="<%=i*60 %>"><%=i + ":00" %></option>
-												<option value="<%=i*60+30 %>"><%=i + ":30" %></option>
+												<option<%=prefill_time == i*60 ? " selected" : "" %> value="<%=i*60 %>"><%=i + ":00" %></option>
+												<option<%=prefill_time == i*60+30 ? " selected" : "" %> value="<%=i*60+30 %>"><%=i + ":30" %></option>
 												<% } %>
 											</select>
 										</div>
 									</td>
 								</tr>
 								<tr>
+									<%
+
+											prefill_date = "";
+											prefill_time = 0;
+								
+											if(request.getAttribute("prefill_dates") != null) {
+												HashMap<String, Date> map = (HashMap<String, Date>) request.getAttribute("prefill_dates");
+												
+												if(map.get("leave_stage") != null) {
+													Calendar cal = Calendar.getInstance();
+													
+													Date d = map.get("leave_stage");
+													cal.setTime(d);
+													prefill_date = dateFormat.format(d);
+													prefill_time = cal.get(Calendar.HOUR) * 60 + cal.get(Calendar.MINUTE);
+												}
+											}
+										%>
 									<td>Leave Stage</td>
 									<td>
-										<input class="input is-small" type="text" name="day_leave_stage" placeholder="YYYY-MM-DD" />
+										<input class="input is-small" type="text" name="day_leave_stage" value="<%=prefill_date %>" placeholder="YYYY-MM-DD" />
 									</td>
 									<td>
 										<div class="select is-small">
 											<select name="time_leave_stage">
 												<% for(int i = 0; i <= 23; i++) { %>
-												<option value="<%=i*60 %>"><%=i + ":00" %></option>
-												<option value="<%=i*60+30 %>"><%=i + ":30" %></option>
+												<option<%=prefill_time == i*60 ? " selected" : "" %> value="<%=i*60 %>"><%=i + ":00" %></option>
+												<option<%=prefill_time == i*60+30 ? " selected" : "" %> value="<%=i*60+30 %>"><%=i + ":30" %></option>
 												<% } %>
 											</select>
 										</div>

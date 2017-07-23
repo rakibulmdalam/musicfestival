@@ -5,8 +5,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
 
 import de.tum.in.dbpra.model.bean.BandBean;
 import de.tum.in.dbpra.model.bean.ScheduleBean;
@@ -47,6 +50,31 @@ public class SchedulesDAO extends DAO {
 				+ "WHERE p.id = s.band_id AND b.id = p.id AND p.id = u.id "
 				+ "AND lower(s.stage_name) ~ ?;";
 		return getMatchingSchedules(sql, stage);
+	}
+	
+	public void insertSchedule(int bandID, String stageName, HashMap<String, Date> dates) throws SQLException, ClassNotFoundException {
+		String query = "INSERT INTO schedule VALUES (NEXTVAL('schedule_seq'), ?, ?, ?, ?, ?, ?);";
+		
+		Connection con = getConnection();
+		con.setAutoCommit(false);
+		con.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
+		
+		PreparedStatement pstmt = con.prepareStatement(query);
+		
+		int i = 1;
+		
+		for(String param : new String[] {"build_up", "start_playing", "finish_playing", "leave_stage"}) {
+			pstmt.setTimestamp(i++, new Timestamp(dates.get(param).getTime()));
+		}
+		
+		pstmt.setString(5, stageName);
+		pstmt.setInt(6, bandID);
+		
+		pstmt.executeUpdate();
+		pstmt.close();
+		
+		con.commit();
+		con.close();
 	}
 
 	private ArrayList<ScheduleBean> getMatchingSchedules(String sqlQuery, String query)
