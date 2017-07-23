@@ -21,7 +21,7 @@ public class VisitorFilter extends AuthenticationFilter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		redirectDisallowed(req, resp, chain, Role.VISITOR);
+		redirectDisallowed(req, resp, chain, user -> user.getRole() == Role.VISITOR);
 	}
 
 	@Override

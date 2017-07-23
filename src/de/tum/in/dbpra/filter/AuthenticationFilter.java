@@ -2,6 +2,7 @@ package de.tum.in.dbpra.filter;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.function.Predicate;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import de.tum.in.dbpra.model.bean.Role;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
 
 public abstract class AuthenticationFilter implements Filter {
@@ -24,28 +24,32 @@ public abstract class AuthenticationFilter implements Filter {
 			throws IOException, ServletException;
 
 	public abstract void init(FilterConfig arg0) throws ServletException;
-	
-	public void redirectDisallowed(ServletRequest req, ServletResponse resp, FilterChain chain, Role allowedRole) throws IOException, ServletException {
+
+	public void redirectDisallowed(ServletRequest req, ServletResponse resp, FilterChain chain,
+			Predicate<UserAccountBean> allowedUsersPredicate) throws IOException, ServletException {
+		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = request.getSession(false);
-
+		
 		UserAccountBean user = (UserAccountBean) session.getAttribute("user");
-
-		if (session != null && user != null && user.getRole() == allowedRole) {
+		
+		if (session != null && user != null && allowedUsersPredicate.test(user)) {
 			Date now = new Date();
 			Date loginDate = (Date) session.getAttribute("loginTime");
-			
+
 			long diff = now.getTime() - loginDate.getTime();
-			
-			if(diff > 15 * 60 * 1000) {
+
+			if (diff > 15 * 60 * 1000) {
 				session.invalidate();
 				((HttpServletResponse) resp).sendRedirect("/login");
 				return;
 			}
-			
+
 			chain.doFilter(req, resp);
 		} else {
-			session.invalidate();
+			if (session != null) {
+				session.invalidate();
+			}
 			((HttpServletResponse) resp).sendRedirect("/login");
 		}
 	}

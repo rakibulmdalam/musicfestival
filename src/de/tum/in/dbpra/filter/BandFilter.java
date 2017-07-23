@@ -21,7 +21,7 @@ public class BandFilter extends AuthenticationFilter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		redirectDisallowed(req, resp, chain, Role.BAND);
+		redirectDisallowed(req, resp, chain, user -> user.getRole() == Role.BAND);
 	}
 
 	@Override

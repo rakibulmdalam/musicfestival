@@ -16,7 +16,7 @@
 			</h1>
 			<h2 class="subtitle">
 				<strong>Hello ${param.name}!</strong> <a href="/logout"
-					class="button is-light button--logout">logout</a>
+					class="button is-light button--logout">logout<span id="logoutTime"></span></a>
 			</h2>
 		</div>
 	</div>
