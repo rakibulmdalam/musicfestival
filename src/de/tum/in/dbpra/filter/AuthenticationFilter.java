@@ -1,6 +1,7 @@
 package de.tum.in.dbpra.filter;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -31,6 +32,17 @@ public abstract class AuthenticationFilter implements Filter {
 		UserAccountBean user = (UserAccountBean) session.getAttribute("user");
 
 		if (session != null && user != null && user.getRole() == allowedRole) {
+			Date now = new Date();
+			Date loginDate = (Date) session.getAttribute("loginTime");
+			
+			long diff = now.getTime() - loginDate.getTime();
+			
+			if(diff > 15 * 60 * 1000) {
+				session.invalidate();
+				((HttpServletResponse) resp).sendRedirect("/login");
+				return;
+			}
+			
 			chain.doFilter(req, resp);
 		} else {
 			session.invalidate();

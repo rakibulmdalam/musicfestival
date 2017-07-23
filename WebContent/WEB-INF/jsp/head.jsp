@@ -1,4 +1,6 @@
 <head>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="java.util.Date"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width">
 <link
@@ -9,5 +11,25 @@
 <link rel="stylesheet" type="text/css" href="/css/app.css" />
 <link rel="stylesheet" type="text/css" href="/css/timetable.css" />
 <script src="/js/app.js"></script>
+<script type="text/javascript">
+	<% if(session.getAttribute("loginTime") != null) { %>
+	var logoutTime = new Date('<%=(new SimpleDateFormat("EE MMM d y H:m:s ZZZ").format((Date) session.getAttribute("loginTime"))) %>').getTime();
+
+	window.onload = function() {
+		var logoutTimeSpan = document.getElementById('logoutTime');
+		
+		setInterval(function() {
+			var diff = ~~((logoutTime - new Date().getTime() + 900000) / 1000);			
+			var s = ((~~(diff / 60) < 10) ? '0' : '') + (~~(diff / 60)) + ':' + ((diff % 60 < 10) ? '0' : '') + (diff % 60);
+			
+			if(diff < 0) {
+				window.location.href = '/login';
+			}
+
+			logoutTimeSpan.innerHTML = '&nbsp;(' + s + ')';
+		}, 1000);
+	}
+	<% } %>
+</script>
 <title>M: The Music Festival | ${param.pageTitle}</title>
 </head>

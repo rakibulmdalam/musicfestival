@@ -2,6 +2,7 @@ package de.tum.in.dbpra.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -59,6 +60,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userID", userID);
 			session.setAttribute("userRole", userRole);
 			session.setAttribute("user", user);
+			session.setAttribute("loginTime", new Date());
 			
 			Role employee = Role.EMPLOYEE;
 			Role band = Role.BAND; 
@@ -66,7 +68,7 @@ public class LoginServlet extends HttpServlet {
 			Role visitor = Role.VISITOR;
 			if ( user.getRole() ==  employee ){
 				
-				if (user.getEmployeeRole().equals("ADMIN")){
+				if (user.getEmployeeRole().equals("ADMIN")) {
 					response.sendRedirect("./admin") ;
 				}
 				else {
