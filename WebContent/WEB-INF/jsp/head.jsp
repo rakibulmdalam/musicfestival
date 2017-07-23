@@ -23,7 +23,7 @@
 			var s = ((~~(diff / 60) < 10) ? '0' : '') + (~~(diff / 60)) + ':' + ((diff % 60 < 10) ? '0' : '') + (diff % 60);
 			
 			if(diff < 0) {
-				window.location.href = '/login';
+				window.location.href = '/logout';
 			}
 
 			logoutTimeSpan.innerHTML = '&nbsp;(' + s + ')';
