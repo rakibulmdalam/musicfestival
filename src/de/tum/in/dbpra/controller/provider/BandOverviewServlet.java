@@ -39,7 +39,7 @@ public class BandOverviewServlet extends HttpServlet {
     	BandBean band = new BandBean();
     	
     	BandDAO bandDAO = new BandDAO();
-		HttpSession session = req.getSession();
+		HttpSession session = req.getSession(false);
 		UserAccountBean uab = (UserAccountBean) session.getAttribute("user");
 		try {
 			band = bandDAO.getBandData(uab.getUserID());
