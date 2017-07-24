@@ -76,16 +76,7 @@ public class BandSchedulerServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		SearchSchedules search;
-		try {
-			search = new SearchSchedules("", SearchType.ALL);
-			req.setAttribute("schedules", search.getSchedules());
-			req.setAttribute("dates", search.getScheduleDates());
-		} catch (ClassNotFoundException | SQLException | SearchQueryException e) {
-			e.printStackTrace();
-			req.setAttribute("schedules", null);
-			req.setAttribute("dates", null);
-		}
+		
 
     	BandDAO bandDAO = new BandDAO();
     	StageDAO stageDAO = new StageDAO();
@@ -142,6 +133,17 @@ public class BandSchedulerServlet extends HttpServlet {
 			req.setAttribute("form_error", true);
 			
 			e.printStackTrace();
+		}
+		
+		SearchSchedules search;
+		try {
+			search = new SearchSchedules("", SearchType.ALL);
+			req.setAttribute("schedules", search.getSchedules());
+			req.setAttribute("dates", search.getScheduleDates());
+		} catch (ClassNotFoundException | SQLException | SearchQueryException e) {
+			e.printStackTrace();
+			req.setAttribute("schedules", null);
+			req.setAttribute("dates", null);
 		}
 		
 		req.setAttribute("bands", bands);
