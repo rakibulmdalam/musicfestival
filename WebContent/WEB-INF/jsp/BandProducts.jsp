@@ -26,17 +26,18 @@
 	<div class="section">
 		<div class="columns">
 			<div class="column is-offset-one-quarter is-half">
-				<div class="content has-text-centered">
-					<h2>Products</h2>
-				</div>
 				<div class="content">
 					
-					<h2>List of Products</h2>
+					<h2 class="has-text-centered">List of Products</h2>
 					<table>
+						<thead>
 						<tr>
+							<td>Name</td>
 							<td>Type</td>
 							<td>Price (euro)</td>
 						</tr>
+						</thead>
+						<tbody>
 						<% 
 						ArrayList<ProductBean> products = (ArrayList<ProductBean>) request.getAttribute("products");
 						if(products.size() > 0){
@@ -56,6 +57,7 @@
 						<%
 							}
 						} %>
+						</tbody>
 					</table>
 				</div>
 			</div>

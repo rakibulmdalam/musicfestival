@@ -80,6 +80,7 @@
 					
 					<h2>Schedules</h2>
 					<table>
+						<thead>
 						<tr>
 							<td>Time Build Up</td>
 							<td>Time Start Playing</td>
@@ -87,6 +88,8 @@
 							<td>Time Leave Stage</td>
 							<td>Stage</td>
 						</tr>
+						</thead>
+						<tbody>
 						<% for( ScheduleBean schedule: band.getSchedules()){ %>
 						<tr>
 							<td><%=schedule.getTimeBuildUp() %></td>
@@ -96,6 +99,7 @@
 							<td><%=schedule.getStage().getName() %></td>
 						</tr>
 						<%} %>
+						</tbody>
 					</table>
 				</div>
 				<div class="content">
