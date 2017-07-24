@@ -24,7 +24,7 @@ public class ShiftDAO extends DAO {
 		String sql = "SELECT s.*, a.* FROM shift s " 
 				+ "JOIN employee_shift es ON es.shift_id = s.id "
 				+ "JOIN area a ON s.area_id = a.id "
-				+ "JOIN employee e ON e.id = s.employee_id  "
+				+ "JOIN employee e ON e.id = es.employee_id  "
 				+ "WHERE e.id = ? " 
 				+ "ORDER BY starting_time ASC ";
 

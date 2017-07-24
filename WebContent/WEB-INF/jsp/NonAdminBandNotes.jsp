@@ -19,40 +19,42 @@
 		<jsp:param name="currentTab" value="band-notes" />
 	</jsp:include>
 	
-	<h1>Band Notes</h1>
-	<p>Here, you can see all notes that were issued to you by bands.</p>
-	
-	<% ArrayList<BandEmployeeInteractionBean> interactions = (ArrayList<BandEmployeeInteractionBean>) request.getAttribute("interactions"); %>
-	
-	
-	<% if(interactions.size() == 0) { %>
-		<em>You have not yet been assigned any notes.</em>
-	<% } else { %>
-	<table>
-		<thead>
-			<tr>
-				<th>Band Name</th>
-				<th>Stage</th>
-				<th>Date/Time</th>
-				<th>Description</th>
-			</tr>
-			
-		</thead>
-		
-		<tbody>
-			<%
-				for(BandEmployeeInteractionBean interaction : interactions) {
-					%>					
-					<tr>
-						<td><%=interaction.getBand().getName() %></td>
-						<td><%=interaction.getStage().getName() %></td>
-						<td><%=interaction.getInteractionDate() %></td>
-						<td><%=interaction.getDescription() %></td>
-					</tr>
-					<%
-				}		
-			} %>
-		</tbody>
-	</table>
+	<section class="section">
+		<div class="columns">
+			<div class="column is-6 is-offset-3">
+				<% ArrayList<BandEmployeeInteractionBean> interactions = (ArrayList<BandEmployeeInteractionBean>) request.getAttribute("interactions"); %>
+				
+				
+				<% if(interactions.size() == 0) { %>
+					<h2 class="festival-day-label">You have not yet been assigned any notes.</h2>
+				<% } else { %>
+				<table>
+					<thead>
+						<tr>
+							<th>Band Name</th>
+							<th>Stage</th>
+							<th>Date/Time</th>
+							<th>Description</th>
+						</tr>
+						
+					</thead>
+					
+					<tbody>
+						<%
+							for(BandEmployeeInteractionBean interaction : interactions) {
+								%>					
+								<tr>
+									<td><%=interaction.getBand().getName() %></td>
+									<td><%=interaction.getStage().getName() %></td>
+									<td><%=interaction.getInteractionDate() %></td>
+									<td><%=interaction.getDescription() %></td>
+								</tr>
+								<%
+							}		
+						} %>
+					</tbody>
+				</table>	
+			</div>
+	</section>
 </body>
 </html>

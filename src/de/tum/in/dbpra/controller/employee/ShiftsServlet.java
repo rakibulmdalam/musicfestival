@@ -9,10 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import de.tum.in.dbpra.model.bean.EmployeeBean;
 import de.tum.in.dbpra.model.bean.NoteNotificationBean;
 import de.tum.in.dbpra.model.bean.ShiftBean;
+import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.dao.NoteDAO;
 import de.tum.in.dbpra.model.dao.ShiftDAO;
 
@@ -34,9 +36,10 @@ public class ShiftsServlet extends HttpServlet {
 		
 		int id;
 		try {
-			id = Integer.parseInt(req.getParameter("id"));
+			HttpSession session = req.getSession();
+			id = ((UserAccountBean) session.getAttribute("user")).getUserID();
 		} catch (NumberFormatException e) {
-			id = 1;
+			id = 0;
 		}
 		
 
