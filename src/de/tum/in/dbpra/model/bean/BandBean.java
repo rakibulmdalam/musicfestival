@@ -1,6 +1,7 @@
 package de.tum.in.dbpra.model.bean;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class BandBean extends ProviderBean {
 
@@ -32,6 +33,10 @@ public class BandBean extends ProviderBean {
 
 	public ArrayList<SongBean> getSongs() {
 		return songs;
+	}
+	
+	public String getFormattedSongNames() {
+		return getSongs().stream().map(SongBean::getTitle).collect(Collectors.joining(", "));
 	}
 	
 	public void setSongs(ArrayList<SongBean> songs) {

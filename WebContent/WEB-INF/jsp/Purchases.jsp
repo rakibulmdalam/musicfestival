@@ -17,7 +17,7 @@
 			<div class="column is-6 is-offset-3">
 	
 				<% if (request.getAttribute("error") != null) { %>
-					<div class="container has-text-centered">
+					<div class="has-text-centered">
 						<h1 class="title is-4"><%= request.getAttribute("error") %></h1>
 					</div>
 					

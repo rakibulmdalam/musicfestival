@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="de.tum.in.dbpra.model.bean.VisitorBean"%>
 <%@ page import="de.tum.in.dbpra.model.bean.ScheduleBean"%>
+<%@ page import="de.tum.in.dbpra.model.bean.SongBean"%>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.stream.Collectors" %>
 
@@ -29,7 +30,7 @@
 		<div class="columns">
 			<div class="column is-6 is-offset-3">
 				<% if (visitor.getTimetable().isEmpty()) {%>
-					<div class="container has-text-centered">
+					<div class="has-text-centered">
 						<h1 class="title">Your timetable is empty</h1>
 						<h2 class="subtitle is-6">Search for schedules and add them to your timetable!</h2>
 					</div>
@@ -62,6 +63,11 @@
 											<p>
 												Genre:
 												<%=item.getBand().getGenre()%><br>
+											</p>
+											<% if (!item.getBand().getSongs().isEmpty()) %>
+											<p>
+												Songs:
+												<%= item.getBand().getFormattedSongNames() %>
 											</p>
 										</div>
 									</div>

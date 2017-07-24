@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import de.tum.in.dbpra.model.bean.BandBean;
 import de.tum.in.dbpra.model.bean.ScheduleBean;
+import de.tum.in.dbpra.model.bean.SongBean;
 import de.tum.in.dbpra.model.bean.StageBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
 
@@ -14,7 +16,7 @@ public class TimetableDAO extends DAO {
 
 	public void getTimetable(VisitorBean visitor) throws ClassNotFoundException, SQLException, EmptyTimetableException {
 
-		String query = "SELECT s.id, s.time_start_playing, s.time_finish_playing, s.stage_name, p.name, b.genre, u.picture "
+		String query = "SELECT s.id, s.time_start_playing, s.time_finish_playing, s.stage_name, p.name, b.id as bandId, b.genre, u.picture "
 				+ "FROM visitor_schedule vs, schedule s, provider p, band b, festivaluser u "
 				+ "WHERE vs.visitor_id = ? "
 				+ "AND s.id = vs.schedule_id " 
@@ -38,6 +40,10 @@ public class TimetableDAO extends DAO {
 			band.setName(rs.getString("name"));
 			band.setGenre(rs.getString("genre"));
 			band.setPhotoUrl(rs.getString("picture"));
+			
+			SongDAO dao = new SongDAO();
+			ArrayList<SongBean> songs = dao.getAllSongsByBand(rs.getInt("bandId"));
+			band.setSongs(songs);
 			
 			ScheduleBean schedule = new ScheduleBean();
 			schedule.setBand(band);
