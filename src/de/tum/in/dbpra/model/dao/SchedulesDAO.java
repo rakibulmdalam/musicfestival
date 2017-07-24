@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 import de.tum.in.dbpra.model.bean.BandBean;
 import de.tum.in.dbpra.model.bean.ScheduleBean;
+import de.tum.in.dbpra.model.bean.SongBean;
 import de.tum.in.dbpra.model.bean.StageBean;
 
 public class SchedulesDAO extends DAO {
@@ -141,6 +142,66 @@ public class SchedulesDAO extends DAO {
 		SearchQueryException(String message) {
 			super(message);
 		}
+	}
+	
+	public ArrayList<ScheduleBean> getBandScheduleById(int bandId) throws SQLException, SearchQueryException{
+		ArrayList<ScheduleBean> schedules = new ArrayList<ScheduleBean>();		
+		String sqlQuery = "SELECT * FROM schedule WHERE band_id = ?";
+		Connection con = null;
+		ResultSet rs;
+		PreparedStatement preparedStatement = null;
+		boolean hasResults = false;
+		
+		try{
+			con = getConnection();
+			con.setAutoCommit(false);
+			
+			preparedStatement = con.prepareStatement(sqlQuery);
+			preparedStatement.setInt(1, bandId);
+			rs = preparedStatement.executeQuery();
+			
+			while (rs.next()) {
+				hasResults = true;
+
+				StageBean stage = new StageBean();
+				stage.setName(rs.getString("stage_name"));
+
+				BandBean band = new BandBean();
+				band.setUserID(bandId);
+
+				ScheduleBean schedule = new ScheduleBean();
+				schedule.setBand(band);
+				schedule.setStage(stage);
+				schedule.setId(rs.getInt("id"));
+				schedule.setTimeStartPlaying(rs.getTimestamp("time_start_playing"));
+				schedule.setTimeFinishPlaying(rs.getTimestamp("time_finish_playing"));
+				schedule.setTimeLeaveStage(rs.getTimestamp("time_leave_stage"));
+				schedule.setTimeBuildUp(rs.getTimestamp("time_build_up"));
+
+				schedules.add(schedule);
+			}
+		
+		
+		} catch (SQLException | ClassNotFoundException e) {
+	
+			System.out.println(e.getMessage());
+	
+		} finally {
+	
+			if (preparedStatement != null) {
+				preparedStatement.close();
+			}
+	
+			if (con != null) {
+				con.close();
+			}
+	
+		}
+
+		if (!hasResults) {
+			throw new SearchQueryException("No schedules matching that query were found");
+		}
+		return schedules;
 	}
 
 }

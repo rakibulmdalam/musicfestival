@@ -10,10 +10,12 @@ public class EmployeeBean extends UserAccountBean {
 	private Date dateOfBirth;
 	private String employeeRole; // TODO: use role enum
 	private ArrayList<ShiftBean> shifts;
+	private ArrayList<StageBean> stages;
 
 	public EmployeeBean() {
 		super();
 		this.shifts = new ArrayList<ShiftBean>();
+		this.stages = new ArrayList<StageBean>();
 	}
 
 	public String getLastName() {
@@ -54,5 +56,17 @@ public class EmployeeBean extends UserAccountBean {
 
 	public void addShift(ShiftBean shift) {
 		this.shifts.add(shift);
+	}
+	
+	public void addStage(StageBean stage) {
+		this.stages.add(stage);
+	}
+
+	public ArrayList<StageBean> getStages() {
+		return stages;
+	}
+
+	public void setStages(ArrayList<StageBean> stages) {
+		this.stages = stages;
 	}
 }

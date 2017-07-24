@@ -14,7 +14,8 @@
 </jsp:include>
 <body>
 	<jsp:include page="nonAdminHeader.jsp">
-		<jsp:param name="firstName" value="Employee" />
+		<jsp:param name="firstName" value="${user.getUserName()}" />
+		<jsp:param name="photoUrl" value="${user.getPhotoUrl()}"/>
 		<jsp:param name="hasBandNotes" value="true" />
 		<jsp:param name="currentTab" value="band-notes" />
 	</jsp:include>
