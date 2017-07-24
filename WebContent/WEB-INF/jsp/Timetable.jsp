@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="de.tum.in.dbpra.model.bean.VisitorBean"%>
 <%@ page import="de.tum.in.dbpra.model.bean.ScheduleBean"%>
+<%@ page import="de.tum.in.dbpra.model.bean.SongBean"%>
 <%@ page import="java.util.Set" %>
 <%@ page import="java.util.stream.Collectors" %>
 
@@ -62,6 +63,11 @@
 											<p>
 												Genre:
 												<%=item.getBand().getGenre()%><br>
+											</p>
+											<% if (!item.getBand().getSongs().isEmpty()) %>
+											<p>
+												Songs:
+												<%= item.getBand().getFormattedSongNames() %>
 											</p>
 										</div>
 									</div>
