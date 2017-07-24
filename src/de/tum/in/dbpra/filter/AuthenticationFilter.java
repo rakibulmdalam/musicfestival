@@ -30,8 +30,11 @@ public abstract class AuthenticationFilter implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpSession session = request.getSession(false);
+		UserAccountBean user = null;
 		
-		UserAccountBean user = (UserAccountBean) session.getAttribute("user");
+		if (session != null) {
+			user = (UserAccountBean) session.getAttribute("user");
+		}
 		
 		if (session != null && user != null && allowedUsersPredicate.test(user)) {
 			Date now = new Date();

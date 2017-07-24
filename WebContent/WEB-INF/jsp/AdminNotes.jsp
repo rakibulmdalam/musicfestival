@@ -30,7 +30,7 @@
 				ArrayList<AreaBean> areas = (ArrayList<AreaBean>) request.getAttribute("areas");
 				
 				if(employees.size() == 0) { %>
-				<h2 class="festival-day-label">There exists no employee you could issue a note to.</h2>
+				<h2 class="title is-5 has-text-centered">There exists no employee you could issue a note to.</h2>
 				<% } else { %>				
 					<form action="/admin/notes" method="post">
 						<div class="field">

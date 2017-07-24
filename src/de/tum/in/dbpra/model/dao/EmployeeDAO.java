@@ -23,7 +23,7 @@ public class EmployeeDAO extends DAO {
 		ResultSet rs;
 		PreparedStatement pstmt = null;
 		
-		pstmt = con.prepareStatement("SELECT * FROM employee WHERE role != 'admin' ORDER BY last_name, first_name");
+		pstmt = con.prepareStatement("SELECT * FROM employee WHERE lower(role) != 'admin' ORDER BY last_name, first_name");
 		rs = pstmt.executeQuery();
 
 		
