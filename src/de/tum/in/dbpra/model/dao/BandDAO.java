@@ -1,14 +1,14 @@
 package de.tum.in.dbpra.model.dao;
 
 import java.sql.Connection;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.ArrayList;
+
 import de.tum.in.dbpra.model.bean.BandBean;
 import de.tum.in.dbpra.model.bean.SongBean;
+import de.tum.in.dbpra.model.dao.SchedulesDAO.SearchQueryException;
 
 
 public class BandDAO extends DAO {

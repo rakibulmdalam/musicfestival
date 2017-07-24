@@ -48,12 +48,9 @@ public class BandOverviewServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		ArrayList<ScheduleBean> bandSchedule;
 		try {
-			bandSchedule = schedulesDAO.getSchedulesByBand(band.getName());
-			band.setSchedules(bandSchedule);
-			req.setAttribute("schedules", bandSchedule);
-		} catch (ClassNotFoundException | SQLException | SearchQueryException e) {
+			band.setSchedules(schedulesDAO.getBandScheduleById(uab.getUserID()));
+		} catch (SQLException | SearchQueryException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		

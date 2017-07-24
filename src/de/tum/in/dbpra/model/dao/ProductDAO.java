@@ -36,10 +36,11 @@ public class ProductDAO extends DAO{
 				
 				ProductBean product = new ProductBean();
 	
-				product.setProvider(provider);
+				product.setName(rs.getString("name"));
 				product.setType(rs.getString("type"));
 				product.setId(rs.getInt("id"));
 				product.setPrice(rs.getDouble("price"));
+				product.setProvider(provider);
 				
 				products.add(product);
 			}
