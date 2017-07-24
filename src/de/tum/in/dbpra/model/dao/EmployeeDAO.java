@@ -10,6 +10,7 @@ import java.util.LinkedHashMap;
 
 import de.tum.in.dbpra.model.bean.EmployeeBean;
 import de.tum.in.dbpra.model.bean.Role;
+import de.tum.in.dbpra.model.bean.StageBean;
 
 public class EmployeeDAO extends DAO {
 	
@@ -38,6 +39,49 @@ public class EmployeeDAO extends DAO {
 			
 			
 			result.put(rs.getInt("id"), employee);
+		}		
+		
+		
+		rs.close();
+		pstmt.close();
+		con.close();
+		
+		return result;
+	}
+	
+	public LinkedHashMap<Integer, EmployeeBean> getEmployeesWithStages()
+			throws SQLException, ClassNotFoundException {
+		LinkedHashMap<Integer, EmployeeBean> result = new LinkedHashMap<>();
+		
+		Connection con = getConnection();
+		
+		ResultSet rs;
+		PreparedStatement pstmt = null;
+		
+		pstmt = con.prepareStatement("SELECT e.*, se.stage_name FROM employee e "
+				+ "JOIN stage_employee se ON se.employee_id = e.id "
+				+ "WHERE lower(role) != 'admin' ORDER BY e.id, e.last_name, e.first_name, se.stage_name");
+		rs = pstmt.executeQuery();
+
+		EmployeeBean employee = null;
+		
+		while (rs.next()) {
+			if(employee == null || employee.getUserID() != rs.getInt("id")) {				
+				employee = new EmployeeBean();
+
+				employee.setUserID(rs.getInt("id"));
+				employee.setFirstName(rs.getString("first_name"));
+				employee.setLastName(rs.getString("last_name"));
+				employee.setDateOfBirth(rs.getDate("date_of_birth"));
+				employee.setEmployeeRole(rs.getString("role"));
+				employee.setRole(Role.EMPLOYEE);
+				
+				result.put(rs.getInt("id"), employee);
+			}
+			
+			StageBean stage = new StageBean();
+			stage.setName(rs.getString("stage_name"));
+			employee.addStage(stage);			
 		}		
 		
 		

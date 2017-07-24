@@ -42,30 +42,17 @@
 					
 				<% 
 				LinkedHashMap<Integer, EmployeeBean> employees = (LinkedHashMap<Integer, EmployeeBean>) request.getAttribute("employees");
-				ArrayList<AreaBean> areas = (ArrayList<AreaBean>) request.getAttribute("areas");
 				
 				if(employees.size() == 0) { %>
 				<h2 class="festival-day-label">There exists no employee you could issue a note to.</h2>
 				<% } else { %>				
-					<form action="/admin/notes" method="post">
+					<form action="/band/notes" method="post">
 						<div class="field">
 							<label for="note_content" class="label" >Note:</label>
 							<textarea class="textarea" name="note" id="note_content"><%=(request.getAttribute("prefill_note") != null ? request.getAttribute("prefill_note") : "") %></textarea>
 						</div>
 						
-						<div class="field">
-							<label class="label" for="area_id">Area:</label>
-							<div class="select is-normal">
-								<select name="area_id" id="area_id">
-									<%
-										for(AreaBean a : areas) {
-										%>					
-										<option value="<%=a.getId() %>"><%=a.getName() %></option>
-									<% } %>
-								</select>
-							</div>
-						</div>
-						<p style="margin:25px 0 15px 0">Please tick at least one employee you want to notify of this note.</p>
+						<p style="margin:25px 0 15px 0">Please tick at least one employee/stage combination for which this note is relevant.</p>
 						
 						<table class="table">
 							<thead>
@@ -73,6 +60,7 @@
 									<th>Select</th>
 									<th>Last Name</th>
 									<th>First Name</th>
+									<th>Stage</th>
 								</tr>
 								
 							</thead>
@@ -80,13 +68,15 @@
 							<tbody>
 								<%
 									for(EmployeeBean e : employees.values()) {
+										for(StageBean b : e.getStages()) {
 										%>					
 										<tr>
-											<td><input<%= (request.getAttribute("prefill_employee_ids") != null && ((HashSet<Integer>)request.getAttribute("prefill_employee_ids")).contains(e.getUserID()) ? " checked=\"checked\"" : "") %> type="checkbox" name="employee_ids" value="<%=e.getUserID() %>" /></td>
+											<td><input<%= (request.getAttribute("prefill_employee_ids") != null && ((HashSet<Integer>)request.getAttribute("prefill_employee_ids")).contains(e.getUserID() + "-" + b.getName()) ? " checked=\"checked\"" : "") %> type="checkbox" name="employee_ids" value="<%=e.getUserID() %>-<%=b.getName() %>" /></td>
 											<td><%=e.getFirstName() %></td>
 											<td><%=e.getLastName() %></td>
+											<td><%=b.getName() %></td>
 										</tr>
-									<% } %>
+									<% }} %>
 							</tbody>
 						</table>
 						

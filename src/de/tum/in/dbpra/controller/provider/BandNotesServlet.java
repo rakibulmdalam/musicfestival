@@ -11,10 +11,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import de.tum.in.dbpra.model.bean.AreaBean;
 import de.tum.in.dbpra.model.bean.EmployeeBean;
 import de.tum.in.dbpra.model.bean.StageBean;
+import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.dao.AreaDAO;
 import de.tum.in.dbpra.model.dao.BandEmployeeInteractionDAO;
 import de.tum.in.dbpra.model.dao.EmployeeDAO;
@@ -32,23 +34,18 @@ public class BandNotesServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		EmployeeDAO dao = new EmployeeDAO();
-		AreaDAO areaDAO = new AreaDAO();
-		
+		BandEmployeeInteractionDAO dao = new BandEmployeeInteractionDAO();
+		EmployeeDAO employeeDAO = new EmployeeDAO();
 		LinkedHashMap<Integer, EmployeeBean> employees = null;
-		ArrayList<AreaBean> areas = null;
-		
 		try {
-			employees = dao.getNonAdminEmployeeList();
-			areas = areaDAO.getAreaList();
+			employees = employeeDAO.getEmployeesWithStages();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 		
 		req.setAttribute("employees", employees);
-		req.setAttribute("areas", areas);
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/AdminNotes.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/BandNotes.jsp");
 		dispatcher.forward(req, resp);
 	}
 
@@ -60,45 +57,46 @@ public class BandNotesServlet extends HttpServlet {
 		
 		LinkedHashMap<Integer, EmployeeBean> employees = null;
 		ArrayList<StageBean> stages = null;
+		int bandID = 0;
 		
 		try {
-			employees = employeeDAO.getNonAdminEmployeeList();
 			stages = stageDAO.getStageList();
+			employees = employeeDAO.getEmployeesWithStages();
+			HttpSession session = req.getSession();
+			bandID = ((UserAccountBean) session.getAttribute("user")).getUserID();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
 		
 		String[] ids = req.getParameterValues("employee_ids");
 		
-		int stageID = 0;
-		
-		try {
-			stageID = Integer.valueOf(req.getParameter("stage_id"));
-		} catch(NumberFormatException e) {
-		}
 		
 		String noteContent = req.getParameter("note");
 				
-		HashSet<Integer> insertIds = new HashSet<>();
+		HashSet<String> insertIds = new HashSet<>();
 		
-		if(ids != null)
-			for(String id : ids) {
-				System.out.println(id);
-				if(employees.containsKey(Integer.valueOf(id))) {
-					insertIds.add(Integer.valueOf(id));
+		try {
+
+			if(ids != null)
+				for(String id : ids) {
+					String[] split = id.split("-");
+					if(employees.containsKey(Integer.valueOf(split[0]))) {
+						insertIds.add(id);
+					}
 				}
-			}
+		} catch(NullPointerException | NumberFormatException e) {
+			req.setAttribute("form_error", true);
+		}
 		
 		req.setAttribute("prefill_employee_ids", insertIds);
 		req.setAttribute("prefill_note", noteContent);
 		req.setAttribute("employees", employees);
-		req.setAttribute("stages", stages);
 		
-		if(insertIds.size() == 0 || noteContent == null || stageID < 1 || noteContent.trim().length() == 0)
+		if(insertIds.size() == 0 || noteContent == null || noteContent.trim().length() == 0)
 			req.setAttribute("form_error", true);
 		else {
 			try {
-				dao.insertNote(noteContent, stageID, insertIds);
+				dao.insertNote(noteContent, bandID, insertIds);
 			} catch (ClassNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -108,7 +106,7 @@ public class BandNotesServlet extends HttpServlet {
 			}
 		}
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/AdminNotes.jsp");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/BandNotes.jsp");
 		dispatcher.forward(req, resp);
 	}
 

@@ -67,7 +67,6 @@
 											<% if (!item.getBand().getSongs().isEmpty()) %>
 											<p>
 												Songs:
-												<%= item.getBand().getFormattedSongNames() %>
 											</p>
 										</div>
 									</div>

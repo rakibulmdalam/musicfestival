@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 
 import de.tum.in.dbpra.model.bean.BandBean;
 import de.tum.in.dbpra.model.bean.BandEmployeeInteractionBean;
@@ -71,6 +72,43 @@ public class BandEmployeeInteractionDAO extends DAO {
 		con.close();
 		
 		return interactions;
+	}
+
+
+	public void insertNote(String noteContent, int bandID, HashSet<String> insertIds) throws SQLException, ClassNotFoundException {
+		Connection con = getConnection();
+		con.setAutoCommit(false);
+		con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
+		
+		try {
+		
+			PreparedStatement pstmt = null;
+			
+			for(String id : insertIds) {
+				int employeeID = Integer.valueOf(id.split("-")[0]);
+				String stageName = id.split("-")[1];
+				
+				pstmt = con.prepareStatement("INSERT INTO band_employee_interaction VALUES "
+						+ "(NEXTVAL('band_employees_interaction_seq'), ?, ?, ?, ?, NOW())");
+				pstmt.setInt(1, employeeID);
+				pstmt.setString(2, stageName);
+				pstmt.setInt(3, bandID);
+				pstmt.setString(4, noteContent);
+				pstmt.execute();
+			}
+			
+
+			con.commit();
+			
+			pstmt.close();
+			
+		} catch(SQLException e) {
+			con.rollback();
+			e.printStackTrace();
+		}
+				
+		con.close();
+		
 	}
 
 }
