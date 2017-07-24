@@ -241,51 +241,54 @@
 		%>
 			<h2 class="festival-day-label"><%=date%></h2>
 			<div class="timetable">
-			<div class="intervals">
-				<div class="interval">12PM</div>
-				<div class="interval">1PM</div>
-				<div class="interval">2PM</div>
-				<div class="interval">3PM</div>
-				<div class="interval">4PM</div>
-				<div class="interval">5PM</div>
-				<div class="interval">6PM</div>
-				<div class="interval">7PM</div>
-				<div class="interval">8PM</div>
-				<div class="interval">9PM</div>
-				<div class="interval">10PM</div>
-				<div class="interval">11PM</div>
-				<div class="interval">12AM</div>
-				<div class="interval">1AM</div>
-			</div>
-			<% HashMap<String, List<ScheduleBean>> schedulesOnDate = schedules.get(date);
-			for (Map.Entry<String, List<ScheduleBean>> schedulesByStage : schedulesOnDate.entrySet()) { %>	
-			<div class="stage-label">
-				<span class="stage-label__text"><%= schedulesByStage.getKey() %></span>
-			</div>
-			<div class="time-slots">
-				<%
-				ScheduleBean prevSchedule = null;
-				for (ScheduleBean schedule : schedulesByStage.getValue()) {
-					if (prevSchedule != null) {
-						long minutesAfterPrev = (schedule.getTimeStartPlaying().getTime() - prevSchedule.getTimeFinishPlaying().getTime()) / (1000 * 60); %>
-						<div class="time-slot time-slot--empty time-slot--<%= minutesAfterPrev %>mins"></div>
-				<%
-					}
-					prevSchedule = schedule;
-				%>
-				<div class="time-slot time-slot--fixed time-slot--<%= schedule.getDurationInMinutes()%>mins">
-					<div class="time-slot__image" style="background-image: url('<%= schedule.getBand().getPhotoUrl() %>')"></div>
-					<div class="time-slot__text">
-						<h2 class="time-slot__title"><%= schedule.getBand().getName() %></h2>
-						<h4 class="time-slot__info"><%=schedule.getFormattedTimeStartPlaying() %>-<%=schedule.getFormattedTimeFinishPlaying() %></h4>
-					</div>
+				<div class="intervals">
+					<div class="interval">12PM</div>
+					<div class="interval">1PM</div>
+					<div class="interval">2PM</div>
+					<div class="interval">3PM</div>
+					<div class="interval">4PM</div>
+					<div class="interval">5PM</div>
+					<div class="interval">6PM</div>
+					<div class="interval">7PM</div>
+					<div class="interval">8PM</div>
+					<div class="interval">9PM</div>
+					<div class="interval">10PM</div>
+					<div class="interval">11PM</div>
+					<div class="interval">12AM</div>
+					<div class="interval">1AM</div>
 				</div>
-				<%
-				}
-				%>
+				<% HashMap<String, List<ScheduleBean>> schedulesOnDate = schedules.get(date);
+				for (Map.Entry<String, List<ScheduleBean>> schedulesByStage : schedulesOnDate.entrySet()) { %>	
+				<div class="stage-label">
+					<span class="stage-label__text"><%= schedulesByStage.getKey() %></span>
+				</div>
+				<div class="time-slots">
+					<%
+					ScheduleBean prevSchedule = null;
+					long minutesAfterPrev;
+					for (ScheduleBean schedule : schedulesByStage.getValue()) {
+						if (prevSchedule != null) {
+							minutesAfterPrev = (schedule.getTimeStartPlaying().getTime() - prevSchedule.getTimeFinishPlaying().getTime()) / (1000 * 60);
+						} else {
+							long millisInDay = 60 * 60 * 24 * 1000;
+							long noon = (schedule.getTimeStartPlaying().getTime() / millisInDay) * millisInDay + 60 * 60 * 10 * 1000;
+							minutesAfterPrev = (schedule.getTimeStartPlaying().getTime() - noon) / (1000 * 60);
+						}
+						prevSchedule = schedule;
+					%>
+						
+						<div class="time-slot time-slot--empty time-slot--<%= minutesAfterPrev %>mins"></div>
+						<div class="time-slot time-slot--fixed time-slot--<%= schedule.getDurationInMinutes()%>mins">
+							<div class="time-slot__image" style="background-image: url('<%= schedule.getBand().getPhotoUrl() %>')"></div>
+							<div class="time-slot__text">
+								<h2 class="time-slot__title"><%= schedule.getBand().getName() %></h2>
+								<h4 class="time-slot__info"><%=schedule.getFormattedTimeStartPlaying() %>-<%=schedule.getFormattedTimeFinishPlaying() %></h4>
+							</div>
+						</div>
+					<% } %>
+				</div>
+				<% } %>
 			</div>
-		</div>
-		<% } %>
 		<% } %>
 		<% } %>
 	</section>

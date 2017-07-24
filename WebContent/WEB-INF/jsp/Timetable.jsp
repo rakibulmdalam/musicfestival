@@ -36,56 +36,56 @@
 					</div>
 				<% } else {
 					for (String day : (Set<String>)request.getAttribute("scheduleDays")) { %>
-					<dl class="section__festival-day">
-						<dt class="festival-day-label"><%= day %></dt>
-
-						<% for (ScheduleBean item : visitor.getTimetable()) { %>
-						<% if (item.getDateWithoutTime().equals(day)) {%>
-						<dd class="box">
-							<article class="media">
-								<div class="media-left">
-									<figure class="image band-image">
-										<img
-											src="<%=item.getBand().getPhotoUrl() %>"
-											alt="Image">
-									</figure>
-								</div>
-								<div class="media-content">
-									<div class="content">
-										<p class="title is-4">
-											<strong><%=item.getBand().getName()%></strong>
-										</p>
-										<p class="subtitle is-6"><%=item.getStage().getName()%>,
-											<%=item.getFormattedTimeStartPlaying()%>
-											-
-											<%=item.getFormattedTimeFinishPlaying()%></p>
-										<div class="content is-small">
-											<p>
-												Genre:
-												<%=item.getBand().getGenre()%><br>
-											</p>
-											<% if (!item.getBand().getSongs().isEmpty()) %>
-											<p>
-												Songs:
-												<%= item.getBand().getFormattedSongNames() %>
-											</p>
+						<dl class="section__festival-day">
+							<dt class="festival-day-label"><%= day %></dt>
+	
+							<% for (ScheduleBean item : visitor.getTimetable()) { %>
+								<% if (item.getDateWithoutTime().equals(day)) {%>
+								<dd class="box">
+									<article class="media">
+										<div class="media-left">
+											<figure class="image band-image">
+												<img
+													src="<%=item.getBand().getPhotoUrl() %>"
+													alt="Image">
+											</figure>
 										</div>
-									</div>
-								</div>
-								<div class="media-right">
-									<form method="post">
-										<input class="input is-hidden" type="number" name="deleteId" value=<%=item.getId() %>>
-										<button class="delete" type="submit"></button>
-									</form>
-								</div>
-							</article>
-						</dd>
-					
+										<div class="media-content">
+											<div class="content">
+												<p class="title is-4">
+													<strong><%=item.getBand().getName()%></strong>
+												</p>
+												<p class="subtitle is-6"><%=item.getStage().getName()%>,
+													<%=item.getFormattedTimeStartPlaying()%>
+													-
+													<%=item.getFormattedTimeFinishPlaying()%></p>
+												<div class="content is-small">
+													<p>
+														Genre:
+														<%=item.getBand().getGenre()%><br>
+													</p>
+													<% if (!item.getBand().getSongs().isEmpty()) %>
+													<p>
+														Songs:
+														<%= item.getBand().getFormattedSongNames() %>
+													</p>
+												</div>
+											</div>
+										</div>
+										<div class="media-right">
+											<form method="post">
+												<input class="input is-hidden" type="number" name="deleteId" value=<%=item.getId() %>>
+												<button class="delete" type="submit"></button>
+											</form>
+										</div>
+									</article>
+								</dd>
+							
+								<% } %>
+							<% } %>
+						</dl>
 					<% } %>
-					<% } %>
-					</dl>
-					<% } %>
-					<% } %>
+				<% } %>
 				
 			</div>
 		</div>

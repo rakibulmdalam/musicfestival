@@ -89,6 +89,10 @@
 	padding: 0.4rem 0.5em;
 }
 
+.time-slot--0mins {
+	display: none;
+}
+
 .time-slot--30mins {
 	width: 80px;
 }
