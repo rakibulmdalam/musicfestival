@@ -63,7 +63,7 @@ public class NoteDAO extends DAO {
 
 			note.setArea(area);
 			ntf.setEmployee(employee);
-			note.setCreationTime(rs.getTimestamp("creation_time"));
+			note.setCreationTime(rs.getTimestamp("time"));
 			note.setContent(rs.getString("content"));
 			ntf.setNote(note);
 			notes.add(ntf);
