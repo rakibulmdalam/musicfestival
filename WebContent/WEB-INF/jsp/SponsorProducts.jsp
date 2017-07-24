@@ -44,6 +44,9 @@
 						%>
 						<tr>
 							<td>
+								<%=product.getName() %>
+							</td>
+							<td>
 								<%=product.getType() %>
 							</td>
 							<td>

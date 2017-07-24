@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
+<%@ page import="de.tum.in.dbpra.model.bean.ScheduleBean"%>	
 <%@ page import="de.tum.in.dbpra.model.bean.SongBean"%>
 
 <!DOCTYPE html>
@@ -73,6 +74,28 @@
 								<%=band.getPhone() %>
 							</td>
 						</tr>
+					</table>
+				</div>
+				<div class="content">
+					
+					<h2>Schedules</h2>
+					<table>
+						<tr>
+							<td>Time Build Up</td>
+							<td>Time Start Playing</td>
+							<td>Time Finish Playing</td>
+							<td>Time Leave Stage</td>
+							<td>Stage</td>
+						</tr>
+						<% for( ScheduleBean schedule: band.getSchedules()){ %>
+						<tr>
+							<td><%=schedule.getTimeBuildUp() %></td>
+							<td><%=schedule.getTimeStartPlaying() %></td>
+							<td><%=schedule.getTimeFinishPlaying() %></td>
+							<td><%=schedule.getTimeLeaveStage() %></td>
+							<td><%=schedule.getStage().getName() %></td>
+						</tr>
+						<%} %>
 					</table>
 				</div>
 				<div class="content">
