@@ -2,7 +2,6 @@ package de.tum.in.dbpra.controller.provider;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 
@@ -13,14 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import de.tum.in.dbpra.model.bean.AreaBean;
 import de.tum.in.dbpra.model.bean.EmployeeBean;
-import de.tum.in.dbpra.model.bean.StageBean;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
-import de.tum.in.dbpra.model.dao.AreaDAO;
 import de.tum.in.dbpra.model.dao.BandEmployeeInteractionDAO;
 import de.tum.in.dbpra.model.dao.EmployeeDAO;
-import de.tum.in.dbpra.model.dao.StageDAO;
 
 public class BandNotesServlet extends HttpServlet {
 
@@ -34,7 +29,6 @@ public class BandNotesServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		BandEmployeeInteractionDAO dao = new BandEmployeeInteractionDAO();
 		EmployeeDAO employeeDAO = new EmployeeDAO();
 		LinkedHashMap<Integer, EmployeeBean> employees = null;
 		try {
@@ -53,14 +47,11 @@ public class BandNotesServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		BandEmployeeInteractionDAO dao = new BandEmployeeInteractionDAO();
 		EmployeeDAO employeeDAO = new EmployeeDAO();
-		StageDAO stageDAO = new StageDAO();
 		
 		LinkedHashMap<Integer, EmployeeBean> employees = null;
-		ArrayList<StageBean> stages = null;
 		int bandID = 0;
 		
 		try {
-			stages = stageDAO.getStageList();
 			employees = employeeDAO.getEmployeesWithStages();
 			HttpSession session = req.getSession();
 			bandID = ((UserAccountBean) session.getAttribute("user")).getUserID();

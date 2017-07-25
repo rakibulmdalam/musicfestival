@@ -9,8 +9,6 @@ import java.util.List;
 
 import de.tum.in.dbpra.model.bean.PurchaseBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
-import de.tum.in.dbpra.model.dao.TimetableDAO.EmptyTimetableException;
-import de.tum.in.dbpra.model.dao.UserAccountDAO.UserNotFoundException;
 
 public class VisitorPurchaseDAO extends DAO{
 	

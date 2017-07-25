@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import de.tum.in.dbpra.model.bean.BandBean;
 import de.tum.in.dbpra.model.bean.SongBean;
-import de.tum.in.dbpra.model.dao.SchedulesDAO.SearchQueryException;
 
 
 public class BandDAO extends DAO {
@@ -34,8 +33,6 @@ public class BandDAO extends DAO {
 		pstmt = con.prepareStatement(sqlQuery);
 		rs = pstmt.executeQuery();
 
-		boolean hasResults = false;
-		
 		while (rs.next()) {
 			BandBean band = new BandBean();
 			band.setUserID(rs.getInt("id"));

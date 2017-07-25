@@ -15,7 +15,6 @@ import de.tum.in.dbpra.model.bean.UserAccountBean;
 import de.tum.in.dbpra.model.bean.VisitorBean;
 import de.tum.in.dbpra.model.dao.VisitorPurchaseDAO;
 import de.tum.in.dbpra.model.dao.VisitorPurchaseDAO.EmptyPurchaseException;
-import de.tum.in.dbpra.model.dao.TimetableDAO.EmptyTimetableException;
 
 public class PurchasesServlet extends HttpServlet {
 

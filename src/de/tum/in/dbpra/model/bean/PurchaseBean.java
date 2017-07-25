@@ -1,6 +1,5 @@
 package de.tum.in.dbpra.model.bean;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

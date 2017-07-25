@@ -27,10 +27,7 @@ public class ProductDAO extends DAO{
 			preparedStatement.setInt(1, providerId);
 			rs = preparedStatement.executeQuery();
 			
-			boolean hasResults = false;
 			while (rs.next()) {
-				hasResults = true;
-	
 				ProviderBean provider = new ProviderBean();
 				provider.setUserID(providerId);
 				

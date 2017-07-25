@@ -4,15 +4,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 
 import de.tum.in.dbpra.model.bean.BandBean;
 import de.tum.in.dbpra.model.bean.BandEmployeeInteractionBean;
 import de.tum.in.dbpra.model.bean.EmployeeBean;
-import de.tum.in.dbpra.model.bean.ScheduleBean;
 import de.tum.in.dbpra.model.bean.StageBean;
 
 public class BandEmployeeInteractionDAO extends DAO {
@@ -42,10 +39,7 @@ public class BandEmployeeInteractionDAO extends DAO {
 		pstmt.setInt(1, employeeID);
 		rs = pstmt.executeQuery();
 
-		boolean hasResults = false;
 		while (rs.next()) {
-			hasResults = true;
-
 			EmployeeBean employee = new EmployeeBean();
 			employee.setUserID(employeeID);
 

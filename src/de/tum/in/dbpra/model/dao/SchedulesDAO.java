@@ -13,7 +13,6 @@ import java.util.HashMap;
 
 import de.tum.in.dbpra.model.bean.BandBean;
 import de.tum.in.dbpra.model.bean.ScheduleBean;
-import de.tum.in.dbpra.model.bean.SongBean;
 import de.tum.in.dbpra.model.bean.StageBean;
 
 public class SchedulesDAO extends DAO {

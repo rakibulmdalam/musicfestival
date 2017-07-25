@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 
@@ -98,10 +97,7 @@ public class EmployeeDAO extends DAO {
 		con.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 		
 		try {
-		
-			ResultSet rs = null;
 			PreparedStatement pstmt = null;
-			
 			
 			pstmt = con.prepareStatement("INSERT INTO note VALUES (NEXTVAL('note_seq'), ?, NOW(), ?)", new String[] {"id"});
 			pstmt.setString(1, noteContent);
@@ -118,14 +114,10 @@ public class EmployeeDAO extends DAO {
 				pstmt.setInt(2, noteID);
 				pstmt.execute();
 			}
-			
 
 			con.commit();
 			
 			pstmt.close();
-			
-			if(rs != null)
-				rs.close();
 			
 		} catch(SQLException e) {
 			con.rollback();

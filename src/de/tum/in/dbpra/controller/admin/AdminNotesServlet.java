@@ -13,10 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import de.tum.in.dbpra.model.bean.AreaBean;
-import de.tum.in.dbpra.model.bean.BandEmployeeInteractionBean;
 import de.tum.in.dbpra.model.bean.EmployeeBean;
 import de.tum.in.dbpra.model.dao.AreaDAO;
-import de.tum.in.dbpra.model.dao.BandEmployeeInteractionDAO;
 import de.tum.in.dbpra.model.dao.EmployeeDAO;
 
 public class AdminNotesServlet extends HttpServlet {

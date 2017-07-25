@@ -3,9 +3,6 @@ package de.tum.in.dbpra.controller.employee;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.TreeSet;
-import java.util.stream.Collectors;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,12 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import de.tum.in.dbpra.model.bean.BandEmployeeInteractionBean;
 import de.tum.in.dbpra.model.bean.EmployeeBean;
-import de.tum.in.dbpra.model.bean.ScheduleBean;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
-import de.tum.in.dbpra.model.bean.VisitorBean;
 import de.tum.in.dbpra.model.dao.BandEmployeeInteractionDAO;
-import de.tum.in.dbpra.model.dao.TimetableDAO;
-import de.tum.in.dbpra.model.dao.TimetableDAO.EmptyTimetableException;
 
 public class NonAdminBandNotesServlet extends HttpServlet {
 

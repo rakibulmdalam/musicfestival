@@ -6,11 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import de.tum.in.dbpra.model.bean.AreaBean;
 import de.tum.in.dbpra.model.bean.BandBean;
-import de.tum.in.dbpra.model.bean.EmployeeBean;
-import de.tum.in.dbpra.model.bean.NoteBean;
-import de.tum.in.dbpra.model.bean.NoteNotificationBean;
 import de.tum.in.dbpra.model.bean.SongBean;
 
 public class SongDAO extends DAO {
@@ -76,10 +72,7 @@ public class SongDAO extends DAO {
 			preparedStatement.setInt(1, bandId);
 			rs = preparedStatement.executeQuery();
 			
-			boolean hasResults = false;
 			while (rs.next()) {
-				hasResults = true;
-	
 				BandBean band = new BandBean();
 				band.setUserID(bandId);
 				

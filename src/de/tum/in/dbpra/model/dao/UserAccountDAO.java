@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import de.tum.in.dbpra.model.bean.Role;
-import de.tum.in.dbpra.model.bean.SponsorBean;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
-import de.tum.in.dbpra.model.bean.VisitorBean;
 
 public class UserAccountDAO extends DAO {
 	public void checkUserAccount(UserAccountBean user)

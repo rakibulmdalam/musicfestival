@@ -3,10 +3,7 @@ package de.tum.in.dbpra.controller.admin;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -54,8 +51,6 @@ public class BandSchedulerServlet extends HttpServlet {
 
 		BandDAO bandDAO = new BandDAO();
     	StageDAO stageDAO = new StageDAO();
-    	
-    	SchedulesDAO schedulesDAO = new SchedulesDAO();
 		
 		ArrayList<BandBean> bands = null;
 		ArrayList<StageBean> stages = null;

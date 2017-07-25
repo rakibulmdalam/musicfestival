@@ -2,8 +2,6 @@ package de.tum.in.dbpra.controller.employee;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,10 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import de.tum.in.dbpra.model.bean.EmployeeBean;
-import de.tum.in.dbpra.model.bean.NoteNotificationBean;
-import de.tum.in.dbpra.model.bean.ShiftBean;
 import de.tum.in.dbpra.model.bean.UserAccountBean;
-import de.tum.in.dbpra.model.dao.NoteDAO;
 import de.tum.in.dbpra.model.dao.ShiftDAO;
 
 public class ShiftsServlet extends HttpServlet {

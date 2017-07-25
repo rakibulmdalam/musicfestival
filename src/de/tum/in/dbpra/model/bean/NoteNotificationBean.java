@@ -1,7 +1,6 @@
 package de.tum.in.dbpra.model.bean;
 
 import java.util.Date;
-import java.util.HashMap;
 
 public class NoteNotificationBean {
 

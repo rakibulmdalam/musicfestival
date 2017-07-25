@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import de.tum.in.dbpra.model.bean.BandBean;
-import de.tum.in.dbpra.model.bean.SongBean;
 import de.tum.in.dbpra.model.bean.SponsorBean;
 
 public class SponsorDAO extends DAO {
@@ -33,8 +31,6 @@ public class SponsorDAO extends DAO {
 		pstmt = con.prepareStatement(sqlQuery);
 		rs = pstmt.executeQuery();
 
-		boolean hasResults = false;
-		
 		while (rs.next()) {
 			SponsorBean sponsor = new SponsorBean();
 			sponsor.setUserID(rs.getInt("id"));
