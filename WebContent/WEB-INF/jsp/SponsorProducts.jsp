@@ -26,12 +26,9 @@
 	<div class="section">
 		<div class="columns">
 			<div class="column is-offset-one-quarter is-half">
-				<div class="content has-text-centered">
-					<h2>Products</h2>
-				</div>
 				<div class="content">
 					
-					<h2>List of Products</h2>
+					<h2 class="has-text-centered">List of Products</h2>
 					<table>
 						<tr>
 							<td>Name</td>

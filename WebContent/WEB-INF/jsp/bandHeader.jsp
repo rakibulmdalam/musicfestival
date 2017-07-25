@@ -33,8 +33,6 @@
 				%>
 				<li class="${param.currentTab eq 'products' ? 'is-active' : ''}"><a
 					href="/band/products">Products</a></li>
-				<li class="${param.currentTab eq 'statistics' ? 'is-active' : ''}"><a
-					href="/band/products/statistics">Statistics</a></li>
 				<%
 					}
 				%>

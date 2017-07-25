@@ -29,7 +29,7 @@
 		<div class="columns">
 			<div class="column is-offset-one-quarter is-half">
 				<div class="content has-text-centered">
-					<h2>Band Overview</h2>
+					<h2>Sponsor Overview</h2>
 					<table>
 						<tr>
 							<td>
