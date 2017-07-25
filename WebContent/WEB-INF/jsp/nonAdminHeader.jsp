@@ -23,8 +23,6 @@
 	<div class="hero-foot">
 		<div class="tabs is-boxed is-centered">
 			<ul>
-				<li class="${param.currentTab eq 'profile' ? 'is-active' : ''}"><a
-					href="/employee">Profile</a></li>
 				<li class="${param.currentTab eq 'shifts' ? 'is-active' : ''}"><a
 					href="/employee/shifts">Shifts</a></li>
 				<li class="${param.currentTab eq 'notes' ? 'is-active' : ''}"><a
