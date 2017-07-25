@@ -14,6 +14,7 @@
 <body>
 	<jsp:include page="adminHeader.jsp">
 		<jsp:param name="firstName" value="${user.getUserName()}" />
+		<jsp:param name="photoUrl" value="${user.getPhotoUrl()}" />
 		<jsp:param name="currentTab" value="notes" />
 	</jsp:include>
 	
