@@ -238,7 +238,7 @@
 		<%
 		} else {
 			HashMap<String, HashMap<String, List<ScheduleBean>>> schedules = (HashMap)request.getAttribute("schedules");
-			for (String date : (Set<String>)request.getAttribute("dates")) {
+			for (String date : (List<String>)request.getAttribute("dates")) {
 		%>
 			<h2 class="festival-day-label"><%=date%></h2>
 			<div class="timetable">

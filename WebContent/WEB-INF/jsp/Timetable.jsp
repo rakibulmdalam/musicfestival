@@ -3,7 +3,7 @@
 <%@ page import="de.tum.in.dbpra.model.bean.VisitorBean"%>
 <%@ page import="de.tum.in.dbpra.model.bean.ScheduleBean"%>
 <%@ page import="de.tum.in.dbpra.model.bean.SongBean"%>
-<%@ page import="java.util.Set" %>
+<%@ page import="java.util.List" %>
 <%@ page import="java.util.stream.Collectors" %>
 
 <jsp:useBean id="visitor" scope="request"
@@ -35,7 +35,7 @@
 						<h2 class="subtitle is-6">Search for schedules and add them to your timetable!</h2>
 					</div>
 				<% } else {
-					for (String day : (Set<String>)request.getAttribute("scheduleDays")) { %>
+					for (String day : (List<String>)request.getAttribute("scheduleDays")) { %>
 						<dl class="section__festival-day">
 							<dt class="festival-day-label"><%= day %></dt>
 	

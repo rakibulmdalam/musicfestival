@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import de.tum.in.dbpra.model.bean.ScheduleBean;
@@ -14,7 +12,7 @@ import de.tum.in.dbpra.model.dao.SchedulesDAO.SearchQueryException;
 
 public class SearchSchedules {
 	private HashMap<String, HashMap<String, List<ScheduleBean>>> scheduleResults;
-	private Set<String> scheduleDates;
+	private List<String> scheduleDates;
 	
 	public SearchSchedules(String query, SearchType type) throws ClassNotFoundException, SQLException, SearchQueryException {
 		SchedulesDAO dao = new SchedulesDAO();
@@ -38,7 +36,7 @@ public class SearchSchedules {
 		}
 		
 		// Group schedules into dates and stage
-		scheduleDates = new TreeSet<String>(schedules.stream().map(ScheduleBean::getDateWithoutTime).collect(Collectors.toSet()));
+		scheduleDates = schedules.stream().map(ScheduleBean::getDateWithoutTime).distinct().collect(Collectors.toList());
 		List<String> scheduleStages = schedules.stream().map(s -> s.getStage().getName()).collect(Collectors.toList());
 		
 		for (String date : scheduleDates) {
@@ -58,7 +56,7 @@ public class SearchSchedules {
 		return scheduleResults;
 	}
 
-	public Set<String> getScheduleDates() {
+	public List<String> getScheduleDates() {
 		return scheduleDates;
 	}
 }

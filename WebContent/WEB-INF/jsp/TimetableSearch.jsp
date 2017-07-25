@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="java.util.HashMap"%>
 <%@ page import="java.util.Map"%>
-<%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.Set"%>
 <%@ page import="de.tum.in.dbpra.model.bean.ScheduleBean"%>
@@ -66,7 +65,7 @@
 		<%
 		} else {
 			HashMap<String, HashMap<String, List<ScheduleBean>>> schedules = (HashMap)request.getAttribute("schedules");
-			for (String date : (Set<String>)request.getAttribute("dates")) {
+			for (String date : (List<String>)request.getAttribute("dates")) {
 		%>
 			<h2 class="festival-day-label"><%=date%></h2>
 			<div class="timetable">
@@ -114,7 +113,7 @@
 								<h4 class="time-slot__info"><%=schedule.getFormattedTimeStartPlaying() %>-<%=schedule.getFormattedTimeFinishPlaying() %></h4>
 							</div>
 							<form method="post">
-							<% ArrayList<Integer> visitorScheduleIds = (ArrayList<Integer>)request.getAttribute("visitorScheduleIds"); 
+							<% List<Integer> visitorScheduleIds = (List<Integer>)request.getAttribute("visitorScheduleIds"); 
 							   if (visitorScheduleIds.contains(schedule.getId())) { %>
 								<input class="input is-hidden" type="number" name="deleteId" value=<%=schedule.getId() %>>
 								<button class="time-slot__button delete" type="submit"></button>

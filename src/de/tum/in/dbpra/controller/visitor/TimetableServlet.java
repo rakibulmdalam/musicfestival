@@ -2,7 +2,7 @@ package de.tum.in.dbpra.controller.visitor;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.TreeSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
@@ -45,9 +45,8 @@ public class TimetableServlet extends HttpServlet {
 		} catch (EmptyTimetableException e) {
 			e.printStackTrace();
 		}
-
-		TreeSet<String> scheduleDays = new TreeSet<String>(
-				visitor.getTimetable().stream().map(ScheduleBean::getDateWithoutTime).collect(Collectors.toSet()));
+		
+		List<String> scheduleDays = visitor.getTimetable().stream().map(ScheduleBean::getDateWithoutTime).distinct().collect(Collectors.toList());
 		req.setAttribute("scheduleDays", scheduleDays);
 		req.setAttribute("visitor", visitor);
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/jsp/Timetable.jsp");
