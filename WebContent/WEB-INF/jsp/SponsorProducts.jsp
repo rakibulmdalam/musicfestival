@@ -34,6 +34,7 @@
 					<h2>List of Products</h2>
 					<table>
 						<tr>
+							<td>Name</td>
 							<td>Type</td>
 							<td>Price (euro)</td>
 						</tr>
