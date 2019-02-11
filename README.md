@@ -1,4 +1,5 @@
 # musicfestival
+Practical course project
 
 ## Configurations
 1. Update the `Config.java` file with your database settings.
